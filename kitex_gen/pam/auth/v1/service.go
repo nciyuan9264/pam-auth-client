@@ -12,11 +12,11 @@ type AuthService interface {
 
 	SendCode(ctx context.Context, req *SendCodeReq) (r *SendCodeResp, err error)
 
-	LoginByPassword(ctx context.Context, req *LoginByPasswordReq) (r *LoginResp, err error)
+	LoginByPassword(ctx context.Context, req *LoginByPasswordReq) (r *UserResp, err error)
 
-	LoginByCode(ctx context.Context, req *LoginByCodeReq) (r *LoginResp, err error)
+	LoginByCode(ctx context.Context, req *LoginByCodeReq) (r *UserResp, err error)
 
-	RefreshToken(ctx context.Context, req *RefreshTokenReq) (r *LoginResp, err error)
+	RefreshToken(ctx context.Context, req *RefreshTokenReq) (r *UserResp, err error)
 
 	VerifyToken(ctx context.Context, req *VerifyTokenReq) (r *VerifyTokenResp, err error)
 
@@ -262,7 +262,7 @@ var fieldIDToName_AuthServiceLoginByPasswordArgs = map[int16]string{
 }
 
 type AuthServiceLoginByPasswordResult struct {
-	Success *LoginResp `thrift:"success,0,optional" frugal:"0,optional,LoginResp" json:"success,omitempty"`
+	Success *UserResp  `thrift:"success,0,optional" frugal:"0,optional,UserResp" json:"success,omitempty"`
 	Err     *AuthError `thrift:"err,1,optional" frugal:"1,optional,AuthError" json:"err,omitempty"`
 }
 
@@ -273,9 +273,9 @@ func NewAuthServiceLoginByPasswordResult() *AuthServiceLoginByPasswordResult {
 func (p *AuthServiceLoginByPasswordResult) InitDefault() {
 }
 
-var AuthServiceLoginByPasswordResult_Success_DEFAULT *LoginResp
+var AuthServiceLoginByPasswordResult_Success_DEFAULT *UserResp
 
-func (p *AuthServiceLoginByPasswordResult) GetSuccess() (v *LoginResp) {
+func (p *AuthServiceLoginByPasswordResult) GetSuccess() (v *UserResp) {
 	if !p.IsSetSuccess() {
 		return AuthServiceLoginByPasswordResult_Success_DEFAULT
 	}
@@ -291,7 +291,7 @@ func (p *AuthServiceLoginByPasswordResult) GetErr() (v *AuthError) {
 	return p.Err
 }
 func (p *AuthServiceLoginByPasswordResult) SetSuccess(x interface{}) {
-	p.Success = x.(*LoginResp)
+	p.Success = x.(*UserResp)
 }
 func (p *AuthServiceLoginByPasswordResult) SetErr(val *AuthError) {
 	p.Err = val
@@ -356,7 +356,7 @@ var fieldIDToName_AuthServiceLoginByCodeArgs = map[int16]string{
 }
 
 type AuthServiceLoginByCodeResult struct {
-	Success *LoginResp `thrift:"success,0,optional" frugal:"0,optional,LoginResp" json:"success,omitempty"`
+	Success *UserResp  `thrift:"success,0,optional" frugal:"0,optional,UserResp" json:"success,omitempty"`
 	Err     *AuthError `thrift:"err,1,optional" frugal:"1,optional,AuthError" json:"err,omitempty"`
 }
 
@@ -367,9 +367,9 @@ func NewAuthServiceLoginByCodeResult() *AuthServiceLoginByCodeResult {
 func (p *AuthServiceLoginByCodeResult) InitDefault() {
 }
 
-var AuthServiceLoginByCodeResult_Success_DEFAULT *LoginResp
+var AuthServiceLoginByCodeResult_Success_DEFAULT *UserResp
 
-func (p *AuthServiceLoginByCodeResult) GetSuccess() (v *LoginResp) {
+func (p *AuthServiceLoginByCodeResult) GetSuccess() (v *UserResp) {
 	if !p.IsSetSuccess() {
 		return AuthServiceLoginByCodeResult_Success_DEFAULT
 	}
@@ -385,7 +385,7 @@ func (p *AuthServiceLoginByCodeResult) GetErr() (v *AuthError) {
 	return p.Err
 }
 func (p *AuthServiceLoginByCodeResult) SetSuccess(x interface{}) {
-	p.Success = x.(*LoginResp)
+	p.Success = x.(*UserResp)
 }
 func (p *AuthServiceLoginByCodeResult) SetErr(val *AuthError) {
 	p.Err = val
@@ -450,7 +450,7 @@ var fieldIDToName_AuthServiceRefreshTokenArgs = map[int16]string{
 }
 
 type AuthServiceRefreshTokenResult struct {
-	Success *LoginResp `thrift:"success,0,optional" frugal:"0,optional,LoginResp" json:"success,omitempty"`
+	Success *UserResp  `thrift:"success,0,optional" frugal:"0,optional,UserResp" json:"success,omitempty"`
 	Err     *AuthError `thrift:"err,1,optional" frugal:"1,optional,AuthError" json:"err,omitempty"`
 }
 
@@ -461,9 +461,9 @@ func NewAuthServiceRefreshTokenResult() *AuthServiceRefreshTokenResult {
 func (p *AuthServiceRefreshTokenResult) InitDefault() {
 }
 
-var AuthServiceRefreshTokenResult_Success_DEFAULT *LoginResp
+var AuthServiceRefreshTokenResult_Success_DEFAULT *UserResp
 
-func (p *AuthServiceRefreshTokenResult) GetSuccess() (v *LoginResp) {
+func (p *AuthServiceRefreshTokenResult) GetSuccess() (v *UserResp) {
 	if !p.IsSetSuccess() {
 		return AuthServiceRefreshTokenResult_Success_DEFAULT
 	}
@@ -479,7 +479,7 @@ func (p *AuthServiceRefreshTokenResult) GetErr() (v *AuthError) {
 	return p.Err
 }
 func (p *AuthServiceRefreshTokenResult) SetSuccess(x interface{}) {
-	p.Success = x.(*LoginResp)
+	p.Success = x.(*UserResp)
 }
 func (p *AuthServiceRefreshTokenResult) SetErr(val *AuthError) {
 	p.Err = val

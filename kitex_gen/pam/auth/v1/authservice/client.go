@@ -13,9 +13,9 @@ import (
 type Client interface {
 	Register(ctx context.Context, req *v1.RegisterReq, callOptions ...callopt.Option) (r *v1.BaseResp, err error)
 	SendCode(ctx context.Context, req *v1.SendCodeReq, callOptions ...callopt.Option) (r *v1.SendCodeResp, err error)
-	LoginByPassword(ctx context.Context, req *v1.LoginByPasswordReq, callOptions ...callopt.Option) (r *v1.LoginResp, err error)
-	LoginByCode(ctx context.Context, req *v1.LoginByCodeReq, callOptions ...callopt.Option) (r *v1.LoginResp, err error)
-	RefreshToken(ctx context.Context, req *v1.RefreshTokenReq, callOptions ...callopt.Option) (r *v1.LoginResp, err error)
+	LoginByPassword(ctx context.Context, req *v1.LoginByPasswordReq, callOptions ...callopt.Option) (r *v1.UserResp, err error)
+	LoginByCode(ctx context.Context, req *v1.LoginByCodeReq, callOptions ...callopt.Option) (r *v1.UserResp, err error)
+	RefreshToken(ctx context.Context, req *v1.RefreshTokenReq, callOptions ...callopt.Option) (r *v1.UserResp, err error)
 	VerifyToken(ctx context.Context, req *v1.VerifyTokenReq, callOptions ...callopt.Option) (r *v1.VerifyTokenResp, err error)
 	Logout(ctx context.Context, req *v1.LogoutReq, callOptions ...callopt.Option) (r *v1.BaseResp, err error)
 	GetProfile(ctx context.Context, req *v1.GetProfileReq, callOptions ...callopt.Option) (r *v1.UserResp, err error)
@@ -65,17 +65,17 @@ func (p *kAuthServiceClient) SendCode(ctx context.Context, req *v1.SendCodeReq, 
 	return p.kClient.SendCode(ctx, req)
 }
 
-func (p *kAuthServiceClient) LoginByPassword(ctx context.Context, req *v1.LoginByPasswordReq, callOptions ...callopt.Option) (r *v1.LoginResp, err error) {
+func (p *kAuthServiceClient) LoginByPassword(ctx context.Context, req *v1.LoginByPasswordReq, callOptions ...callopt.Option) (r *v1.UserResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.LoginByPassword(ctx, req)
 }
 
-func (p *kAuthServiceClient) LoginByCode(ctx context.Context, req *v1.LoginByCodeReq, callOptions ...callopt.Option) (r *v1.LoginResp, err error) {
+func (p *kAuthServiceClient) LoginByCode(ctx context.Context, req *v1.LoginByCodeReq, callOptions ...callopt.Option) (r *v1.UserResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.LoginByCode(ctx, req)
 }
 
-func (p *kAuthServiceClient) RefreshToken(ctx context.Context, req *v1.RefreshTokenReq, callOptions ...callopt.Option) (r *v1.LoginResp, err error) {
+func (p *kAuthServiceClient) RefreshToken(ctx context.Context, req *v1.RefreshTokenReq, callOptions ...callopt.Option) (r *v1.UserResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.RefreshToken(ctx, req)
 }

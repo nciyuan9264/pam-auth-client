@@ -520,7 +520,7 @@ func (p *kClient) SendCode(ctx context.Context, req *v1.SendCodeReq) (r *v1.Send
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) LoginByPassword(ctx context.Context, req *v1.LoginByPasswordReq) (r *v1.LoginResp, err error) {
+func (p *kClient) LoginByPassword(ctx context.Context, req *v1.LoginByPasswordReq) (r *v1.UserResp, err error) {
 	var _args v1.AuthServiceLoginByPasswordArgs
 	_args.Req = req
 	var _result v1.AuthServiceLoginByPasswordResult
@@ -534,7 +534,7 @@ func (p *kClient) LoginByPassword(ctx context.Context, req *v1.LoginByPasswordRe
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) LoginByCode(ctx context.Context, req *v1.LoginByCodeReq) (r *v1.LoginResp, err error) {
+func (p *kClient) LoginByCode(ctx context.Context, req *v1.LoginByCodeReq) (r *v1.UserResp, err error) {
 	var _args v1.AuthServiceLoginByCodeArgs
 	_args.Req = req
 	var _result v1.AuthServiceLoginByCodeResult
@@ -548,7 +548,7 @@ func (p *kClient) LoginByCode(ctx context.Context, req *v1.LoginByCodeReq) (r *v
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) RefreshToken(ctx context.Context, req *v1.RefreshTokenReq) (r *v1.LoginResp, err error) {
+func (p *kClient) RefreshToken(ctx context.Context, req *v1.RefreshTokenReq) (r *v1.UserResp, err error) {
 	var _args v1.AuthServiceRefreshTokenArgs
 	_args.Req = req
 	var _result v1.AuthServiceRefreshTokenResult

@@ -694,7 +694,7 @@ SkipFieldError:
 
 func (p *AuthServiceLoginByPasswordResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
-	_field := NewLoginResp()
+	_field := NewUserResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
@@ -946,7 +946,7 @@ SkipFieldError:
 
 func (p *AuthServiceLoginByCodeResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
-	_field := NewLoginResp()
+	_field := NewUserResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
@@ -1198,7 +1198,7 @@ SkipFieldError:
 
 func (p *AuthServiceRefreshTokenResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
-	_field := NewLoginResp()
+	_field := NewUserResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {

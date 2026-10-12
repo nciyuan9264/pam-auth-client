@@ -13,6 +13,7 @@ import (
 type Client interface {
 	Register(ctx context.Context, req *v1.RegisterReq, callOptions ...callopt.Option) (r *v1.BaseResp, err error)
 	SendCode(ctx context.Context, req *v1.SendCodeReq, callOptions ...callopt.Option) (r *v1.SendCodeResp, err error)
+	GetLoginShowcase(ctx context.Context, req *v1.LoginShowcaseReq, callOptions ...callopt.Option) (r *v1.LoginShowcaseResp, err error)
 	LoginByPassword(ctx context.Context, req *v1.LoginByPasswordReq, callOptions ...callopt.Option) (r *v1.UserResp, err error)
 	LoginByCode(ctx context.Context, req *v1.LoginByCodeReq, callOptions ...callopt.Option) (r *v1.UserResp, err error)
 	RefreshToken(ctx context.Context, req *v1.RefreshTokenReq, callOptions ...callopt.Option) (r *v1.UserResp, err error)
@@ -63,6 +64,11 @@ func (p *kAuthServiceClient) Register(ctx context.Context, req *v1.RegisterReq, 
 func (p *kAuthServiceClient) SendCode(ctx context.Context, req *v1.SendCodeReq, callOptions ...callopt.Option) (r *v1.SendCodeResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.SendCode(ctx, req)
+}
+
+func (p *kAuthServiceClient) GetLoginShowcase(ctx context.Context, req *v1.LoginShowcaseReq, callOptions ...callopt.Option) (r *v1.LoginShowcaseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetLoginShowcase(ctx, req)
 }
 
 func (p *kAuthServiceClient) LoginByPassword(ctx context.Context, req *v1.LoginByPasswordReq, callOptions ...callopt.Option) (r *v1.UserResp, err error) {

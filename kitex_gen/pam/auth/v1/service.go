@@ -12,6 +12,8 @@ type AuthService interface {
 
 	SendCode(ctx context.Context, req *SendCodeReq) (r *SendCodeResp, err error)
 
+	GetLoginShowcase(ctx context.Context, req *LoginShowcaseReq) (r *LoginShowcaseResp, err error)
+
 	LoginByPassword(ctx context.Context, req *LoginByPasswordReq) (r *UserResp, err error)
 
 	LoginByCode(ctx context.Context, req *LoginByCodeReq) (r *UserResp, err error)
@@ -219,6 +221,100 @@ func (p *AuthServiceSendCodeResult) String() string {
 }
 
 var fieldIDToName_AuthServiceSendCodeResult = map[int16]string{
+	0: "success",
+	1: "err",
+}
+
+type AuthServiceGetLoginShowcaseArgs struct {
+	Req *LoginShowcaseReq `thrift:"req,1,required" frugal:"1,required,LoginShowcaseReq" json:"req"`
+}
+
+func NewAuthServiceGetLoginShowcaseArgs() *AuthServiceGetLoginShowcaseArgs {
+	return &AuthServiceGetLoginShowcaseArgs{}
+}
+
+func (p *AuthServiceGetLoginShowcaseArgs) InitDefault() {
+}
+
+var AuthServiceGetLoginShowcaseArgs_Req_DEFAULT *LoginShowcaseReq
+
+func (p *AuthServiceGetLoginShowcaseArgs) GetReq() (v *LoginShowcaseReq) {
+	if !p.IsSetReq() {
+		return AuthServiceGetLoginShowcaseArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *AuthServiceGetLoginShowcaseArgs) SetReq(val *LoginShowcaseReq) {
+	p.Req = val
+}
+
+func (p *AuthServiceGetLoginShowcaseArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *AuthServiceGetLoginShowcaseArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceGetLoginShowcaseArgs(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceGetLoginShowcaseArgs = map[int16]string{
+	1: "req",
+}
+
+type AuthServiceGetLoginShowcaseResult struct {
+	Success *LoginShowcaseResp `thrift:"success,0,optional" frugal:"0,optional,LoginShowcaseResp" json:"success,omitempty"`
+	Err     *AuthError         `thrift:"err,1,optional" frugal:"1,optional,AuthError" json:"err,omitempty"`
+}
+
+func NewAuthServiceGetLoginShowcaseResult() *AuthServiceGetLoginShowcaseResult {
+	return &AuthServiceGetLoginShowcaseResult{}
+}
+
+func (p *AuthServiceGetLoginShowcaseResult) InitDefault() {
+}
+
+var AuthServiceGetLoginShowcaseResult_Success_DEFAULT *LoginShowcaseResp
+
+func (p *AuthServiceGetLoginShowcaseResult) GetSuccess() (v *LoginShowcaseResp) {
+	if !p.IsSetSuccess() {
+		return AuthServiceGetLoginShowcaseResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var AuthServiceGetLoginShowcaseResult_Err_DEFAULT *AuthError
+
+func (p *AuthServiceGetLoginShowcaseResult) GetErr() (v *AuthError) {
+	if !p.IsSetErr() {
+		return AuthServiceGetLoginShowcaseResult_Err_DEFAULT
+	}
+	return p.Err
+}
+func (p *AuthServiceGetLoginShowcaseResult) SetSuccess(x interface{}) {
+	p.Success = x.(*LoginShowcaseResp)
+}
+func (p *AuthServiceGetLoginShowcaseResult) SetErr(val *AuthError) {
+	p.Err = val
+}
+
+func (p *AuthServiceGetLoginShowcaseResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *AuthServiceGetLoginShowcaseResult) IsSetErr() bool {
+	return p.Err != nil
+}
+
+func (p *AuthServiceGetLoginShowcaseResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceGetLoginShowcaseResult(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceGetLoginShowcaseResult = map[int16]string{
 	0: "success",
 	1: "err",
 }

@@ -361,6 +361,157 @@ var fieldIDToName_SendCodeResp = map[int16]string{
 	3: "data",
 }
 
+type LoginShowcaseReq struct {
+}
+
+func NewLoginShowcaseReq() *LoginShowcaseReq {
+	return &LoginShowcaseReq{}
+}
+
+func (p *LoginShowcaseReq) InitDefault() {
+}
+
+func (p *LoginShowcaseReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("LoginShowcaseReq(%+v)", *p)
+}
+
+var fieldIDToName_LoginShowcaseReq = map[int16]string{}
+
+type LoginShowcasePlayer struct {
+	Avatar string `thrift:"avatar,1,required" frugal:"1,required,string" json:"avatar"`
+}
+
+func NewLoginShowcasePlayer() *LoginShowcasePlayer {
+	return &LoginShowcasePlayer{}
+}
+
+func (p *LoginShowcasePlayer) InitDefault() {
+}
+
+func (p *LoginShowcasePlayer) GetAvatar() (v string) {
+	return p.Avatar
+}
+func (p *LoginShowcasePlayer) SetAvatar(val string) {
+	p.Avatar = val
+}
+
+func (p *LoginShowcasePlayer) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("LoginShowcasePlayer(%+v)", *p)
+}
+
+var fieldIDToName_LoginShowcasePlayer = map[int16]string{
+	1: "avatar",
+}
+
+type LoginShowcaseData struct {
+	TotalPlayers        int64                  `thrift:"total_players,1,required" frugal:"1,required,i64" json:"total_players"`
+	NewlyJoinedPlayers_ int64                  `thrift:"newly_joined_players,2,required" frugal:"2,required,i64" json:"newly_joined_players"`
+	RecentPlayers       []*LoginShowcasePlayer `thrift:"recent_players,3,required" frugal:"3,required,list<LoginShowcasePlayer>" json:"recent_players"`
+}
+
+func NewLoginShowcaseData() *LoginShowcaseData {
+	return &LoginShowcaseData{}
+}
+
+func (p *LoginShowcaseData) InitDefault() {
+}
+
+func (p *LoginShowcaseData) GetTotalPlayers() (v int64) {
+	return p.TotalPlayers
+}
+
+func (p *LoginShowcaseData) GetNewlyJoinedPlayers_() (v int64) {
+	return p.NewlyJoinedPlayers_
+}
+
+func (p *LoginShowcaseData) GetRecentPlayers() (v []*LoginShowcasePlayer) {
+	return p.RecentPlayers
+}
+func (p *LoginShowcaseData) SetTotalPlayers(val int64) {
+	p.TotalPlayers = val
+}
+func (p *LoginShowcaseData) SetNewlyJoinedPlayers_(val int64) {
+	p.NewlyJoinedPlayers_ = val
+}
+func (p *LoginShowcaseData) SetRecentPlayers(val []*LoginShowcasePlayer) {
+	p.RecentPlayers = val
+}
+
+func (p *LoginShowcaseData) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("LoginShowcaseData(%+v)", *p)
+}
+
+var fieldIDToName_LoginShowcaseData = map[int16]string{
+	1: "total_players",
+	2: "newly_joined_players",
+	3: "recent_players",
+}
+
+type LoginShowcaseResp struct {
+	StatusCode int32              `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
+	Message    string             `thrift:"message,2,required" frugal:"2,required,string" json:"message"`
+	Data       *LoginShowcaseData `thrift:"data,3,required" frugal:"3,required,LoginShowcaseData" json:"data"`
+}
+
+func NewLoginShowcaseResp() *LoginShowcaseResp {
+	return &LoginShowcaseResp{}
+}
+
+func (p *LoginShowcaseResp) InitDefault() {
+}
+
+func (p *LoginShowcaseResp) GetStatusCode() (v int32) {
+	return p.StatusCode
+}
+
+func (p *LoginShowcaseResp) GetMessage() (v string) {
+	return p.Message
+}
+
+var LoginShowcaseResp_Data_DEFAULT *LoginShowcaseData
+
+func (p *LoginShowcaseResp) GetData() (v *LoginShowcaseData) {
+	if !p.IsSetData() {
+		return LoginShowcaseResp_Data_DEFAULT
+	}
+	return p.Data
+}
+func (p *LoginShowcaseResp) SetStatusCode(val int32) {
+	p.StatusCode = val
+}
+func (p *LoginShowcaseResp) SetMessage(val string) {
+	p.Message = val
+}
+func (p *LoginShowcaseResp) SetData(val *LoginShowcaseData) {
+	p.Data = val
+}
+
+func (p *LoginShowcaseResp) IsSetData() bool {
+	return p.Data != nil
+}
+
+func (p *LoginShowcaseResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("LoginShowcaseResp(%+v)", *p)
+}
+
+var fieldIDToName_LoginShowcaseResp = map[int16]string{
+	1: "status_code",
+	2: "message",
+	3: "data",
+}
+
 type LoginByPasswordReq struct {
 	Email    string `thrift:"email,1,required" frugal:"1,required,string" json:"email"`
 	Password string `thrift:"password,2,required" frugal:"2,required,string" json:"password"`
@@ -756,9 +907,10 @@ var fieldIDToName_GetProfileReq = map[int16]string{
 }
 
 type UserResp struct {
-	StatusCode int32         `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
-	Message    string        `thrift:"message,2,required" frugal:"2,required,string" json:"message"`
-	Data       *UserIdentity `thrift:"data,3,required" frugal:"3,required,UserIdentity" json:"data"`
+	StatusCode      int32         `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
+	Message         string        `thrift:"message,2,required" frugal:"2,required,string" json:"message"`
+	Data            *UserIdentity `thrift:"data,3,required" frugal:"3,required,UserIdentity" json:"data"`
+	NeedsOnboarding *bool         `thrift:"needs_onboarding,4,optional" frugal:"4,optional,bool" json:"needs_onboarding,omitempty"`
 }
 
 func NewUserResp() *UserResp {
@@ -784,6 +936,15 @@ func (p *UserResp) GetData() (v *UserIdentity) {
 	}
 	return p.Data
 }
+
+var UserResp_NeedsOnboarding_DEFAULT bool
+
+func (p *UserResp) GetNeedsOnboarding() (v bool) {
+	if !p.IsSetNeedsOnboarding() {
+		return UserResp_NeedsOnboarding_DEFAULT
+	}
+	return *p.NeedsOnboarding
+}
 func (p *UserResp) SetStatusCode(val int32) {
 	p.StatusCode = val
 }
@@ -793,9 +954,16 @@ func (p *UserResp) SetMessage(val string) {
 func (p *UserResp) SetData(val *UserIdentity) {
 	p.Data = val
 }
+func (p *UserResp) SetNeedsOnboarding(val *bool) {
+	p.NeedsOnboarding = val
+}
 
 func (p *UserResp) IsSetData() bool {
 	return p.Data != nil
+}
+
+func (p *UserResp) IsSetNeedsOnboarding() bool {
+	return p.NeedsOnboarding != nil
 }
 
 func (p *UserResp) String() string {
@@ -809,6 +977,7 @@ var fieldIDToName_UserResp = map[int16]string{
 	1: "status_code",
 	2: "message",
 	3: "data",
+	4: "needs_onboarding",
 }
 
 type UpdateUserReq struct {

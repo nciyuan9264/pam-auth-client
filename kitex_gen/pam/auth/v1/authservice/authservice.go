@@ -27,6 +27,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetLoginShowcase": kitex.NewMethodInfo(
+		getLoginShowcaseHandler,
+		newAuthServiceGetLoginShowcaseArgs,
+		newAuthServiceGetLoginShowcaseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"LoginByPassword": kitex.NewMethodInfo(
 		loginByPasswordHandler,
 		newAuthServiceLoginByPasswordArgs,
@@ -216,6 +223,30 @@ func newAuthServiceSendCodeArgs() interface{} {
 
 func newAuthServiceSendCodeResult() interface{} {
 	return v1.NewAuthServiceSendCodeResult()
+}
+
+func getLoginShowcaseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*v1.AuthServiceGetLoginShowcaseArgs)
+	realResult := result.(*v1.AuthServiceGetLoginShowcaseResult)
+	success, err := handler.(v1.AuthService).GetLoginShowcase(ctx, realArg.Req)
+	if err != nil {
+		switch v := err.(type) {
+		case *v1.AuthError:
+			realResult.Err = v
+		default:
+			return err
+		}
+	} else {
+		realResult.Success = success
+	}
+	return nil
+}
+func newAuthServiceGetLoginShowcaseArgs() interface{} {
+	return v1.NewAuthServiceGetLoginShowcaseArgs()
+}
+
+func newAuthServiceGetLoginShowcaseResult() interface{} {
+	return v1.NewAuthServiceGetLoginShowcaseResult()
 }
 
 func loginByPasswordHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -511,6 +542,20 @@ func (p *kClient) SendCode(ctx context.Context, req *v1.SendCodeReq) (r *v1.Send
 	_args.Req = req
 	var _result v1.AuthServiceSendCodeResult
 	if err = p.c.Call(ctx, "SendCode", &_args, &_result); err != nil {
+		return
+	}
+	switch {
+	case _result.Err != nil:
+		return r, _result.Err
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetLoginShowcase(ctx context.Context, req *v1.LoginShowcaseReq) (r *v1.LoginShowcaseResp, err error) {
+	var _args v1.AuthServiceGetLoginShowcaseArgs
+	_args.Req = req
+	var _result v1.AuthServiceGetLoginShowcaseResult
+	if err = p.c.Call(ctx, "GetLoginShowcase", &_args, &_result); err != nil {
 		return
 	}
 	switch {

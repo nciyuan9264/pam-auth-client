@@ -22,6 +22,14 @@ type Client interface {
 	GetProfile(ctx context.Context, req *v1.GetProfileReq, callOptions ...callopt.Option) (r *v1.UserResp, err error)
 	UpdateUser(ctx context.Context, req *v1.UpdateUserReq, callOptions ...callopt.Option) (r *v1.UserResp, err error)
 	UploadAvatar(ctx context.Context, req *v1.UploadAvatarReq, callOptions ...callopt.Option) (r *v1.UploadAvatarResp, err error)
+	ListPasskeys(ctx context.Context, req *v1.ListPasskeysReq, callOptions ...callopt.Option) (r *v1.ListPasskeysResp, err error)
+	SendPasskeyManagementCode(ctx context.Context, req *v1.SendPasskeyManagementCodeReq, callOptions ...callopt.Option) (r *v1.PasskeyManagementCodeResp, err error)
+	BeginPasskeyRegistration(ctx context.Context, req *v1.BeginPasskeyRegistrationReq, callOptions ...callopt.Option) (r *v1.PasskeyCeremonyResp, err error)
+	FinishPasskeyRegistration(ctx context.Context, req *v1.FinishPasskeyRegistrationReq, callOptions ...callopt.Option) (r *v1.PasskeyResp, err error)
+	BeginPasskeyLogin(ctx context.Context, req *v1.BeginPasskeyLoginReq, callOptions ...callopt.Option) (r *v1.PasskeyCeremonyResp, err error)
+	FinishPasskeyLogin(ctx context.Context, req *v1.FinishPasskeyLoginReq, callOptions ...callopt.Option) (r *v1.UserResp, err error)
+	RenamePasskey(ctx context.Context, req *v1.RenamePasskeyReq, callOptions ...callopt.Option) (r *v1.PasskeyResp, err error)
+	DeletePasskey(ctx context.Context, req *v1.DeletePasskeyReq, callOptions ...callopt.Option) (r *v1.BaseResp, err error)
 	GetUser(ctx context.Context, req *v1.GetUserReq, callOptions ...callopt.Option) (r *v1.UserResp, err error)
 	ListUsers(ctx context.Context, req *v1.ListUsersReq, callOptions ...callopt.Option) (r *v1.ListUsersResp, err error)
 	GetJWKS(ctx context.Context, req *v1.JWKSReq, callOptions ...callopt.Option) (r *v1.JWKSResp, err error)
@@ -109,6 +117,46 @@ func (p *kAuthServiceClient) UpdateUser(ctx context.Context, req *v1.UpdateUserR
 func (p *kAuthServiceClient) UploadAvatar(ctx context.Context, req *v1.UploadAvatarReq, callOptions ...callopt.Option) (r *v1.UploadAvatarResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.UploadAvatar(ctx, req)
+}
+
+func (p *kAuthServiceClient) ListPasskeys(ctx context.Context, req *v1.ListPasskeysReq, callOptions ...callopt.Option) (r *v1.ListPasskeysResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ListPasskeys(ctx, req)
+}
+
+func (p *kAuthServiceClient) SendPasskeyManagementCode(ctx context.Context, req *v1.SendPasskeyManagementCodeReq, callOptions ...callopt.Option) (r *v1.PasskeyManagementCodeResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SendPasskeyManagementCode(ctx, req)
+}
+
+func (p *kAuthServiceClient) BeginPasskeyRegistration(ctx context.Context, req *v1.BeginPasskeyRegistrationReq, callOptions ...callopt.Option) (r *v1.PasskeyCeremonyResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.BeginPasskeyRegistration(ctx, req)
+}
+
+func (p *kAuthServiceClient) FinishPasskeyRegistration(ctx context.Context, req *v1.FinishPasskeyRegistrationReq, callOptions ...callopt.Option) (r *v1.PasskeyResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.FinishPasskeyRegistration(ctx, req)
+}
+
+func (p *kAuthServiceClient) BeginPasskeyLogin(ctx context.Context, req *v1.BeginPasskeyLoginReq, callOptions ...callopt.Option) (r *v1.PasskeyCeremonyResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.BeginPasskeyLogin(ctx, req)
+}
+
+func (p *kAuthServiceClient) FinishPasskeyLogin(ctx context.Context, req *v1.FinishPasskeyLoginReq, callOptions ...callopt.Option) (r *v1.UserResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.FinishPasskeyLogin(ctx, req)
+}
+
+func (p *kAuthServiceClient) RenamePasskey(ctx context.Context, req *v1.RenamePasskeyReq, callOptions ...callopt.Option) (r *v1.PasskeyResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.RenamePasskey(ctx, req)
+}
+
+func (p *kAuthServiceClient) DeletePasskey(ctx context.Context, req *v1.DeletePasskeyReq, callOptions ...callopt.Option) (r *v1.BaseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeletePasskey(ctx, req)
 }
 
 func (p *kAuthServiceClient) GetUser(ctx context.Context, req *v1.GetUserReq, callOptions ...callopt.Option) (r *v1.UserResp, err error) {

@@ -90,6 +90,62 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ListPasskeys": kitex.NewMethodInfo(
+		listPasskeysHandler,
+		newAuthServiceListPasskeysArgs,
+		newAuthServiceListPasskeysResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SendPasskeyManagementCode": kitex.NewMethodInfo(
+		sendPasskeyManagementCodeHandler,
+		newAuthServiceSendPasskeyManagementCodeArgs,
+		newAuthServiceSendPasskeyManagementCodeResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"BeginPasskeyRegistration": kitex.NewMethodInfo(
+		beginPasskeyRegistrationHandler,
+		newAuthServiceBeginPasskeyRegistrationArgs,
+		newAuthServiceBeginPasskeyRegistrationResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"FinishPasskeyRegistration": kitex.NewMethodInfo(
+		finishPasskeyRegistrationHandler,
+		newAuthServiceFinishPasskeyRegistrationArgs,
+		newAuthServiceFinishPasskeyRegistrationResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"BeginPasskeyLogin": kitex.NewMethodInfo(
+		beginPasskeyLoginHandler,
+		newAuthServiceBeginPasskeyLoginArgs,
+		newAuthServiceBeginPasskeyLoginResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"FinishPasskeyLogin": kitex.NewMethodInfo(
+		finishPasskeyLoginHandler,
+		newAuthServiceFinishPasskeyLoginArgs,
+		newAuthServiceFinishPasskeyLoginResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"RenamePasskey": kitex.NewMethodInfo(
+		renamePasskeyHandler,
+		newAuthServiceRenamePasskeyArgs,
+		newAuthServiceRenamePasskeyResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeletePasskey": kitex.NewMethodInfo(
+		deletePasskeyHandler,
+		newAuthServiceDeletePasskeyArgs,
+		newAuthServiceDeletePasskeyResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"GetUser": kitex.NewMethodInfo(
 		getUserHandler,
 		newAuthServiceGetUserArgs,
@@ -441,6 +497,198 @@ func newAuthServiceUploadAvatarResult() interface{} {
 	return v1.NewAuthServiceUploadAvatarResult()
 }
 
+func listPasskeysHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*v1.AuthServiceListPasskeysArgs)
+	realResult := result.(*v1.AuthServiceListPasskeysResult)
+	success, err := handler.(v1.AuthService).ListPasskeys(ctx, realArg.Req)
+	if err != nil {
+		switch v := err.(type) {
+		case *v1.AuthError:
+			realResult.Err = v
+		default:
+			return err
+		}
+	} else {
+		realResult.Success = success
+	}
+	return nil
+}
+func newAuthServiceListPasskeysArgs() interface{} {
+	return v1.NewAuthServiceListPasskeysArgs()
+}
+
+func newAuthServiceListPasskeysResult() interface{} {
+	return v1.NewAuthServiceListPasskeysResult()
+}
+
+func sendPasskeyManagementCodeHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*v1.AuthServiceSendPasskeyManagementCodeArgs)
+	realResult := result.(*v1.AuthServiceSendPasskeyManagementCodeResult)
+	success, err := handler.(v1.AuthService).SendPasskeyManagementCode(ctx, realArg.Req)
+	if err != nil {
+		switch v := err.(type) {
+		case *v1.AuthError:
+			realResult.Err = v
+		default:
+			return err
+		}
+	} else {
+		realResult.Success = success
+	}
+	return nil
+}
+func newAuthServiceSendPasskeyManagementCodeArgs() interface{} {
+	return v1.NewAuthServiceSendPasskeyManagementCodeArgs()
+}
+
+func newAuthServiceSendPasskeyManagementCodeResult() interface{} {
+	return v1.NewAuthServiceSendPasskeyManagementCodeResult()
+}
+
+func beginPasskeyRegistrationHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*v1.AuthServiceBeginPasskeyRegistrationArgs)
+	realResult := result.(*v1.AuthServiceBeginPasskeyRegistrationResult)
+	success, err := handler.(v1.AuthService).BeginPasskeyRegistration(ctx, realArg.Req)
+	if err != nil {
+		switch v := err.(type) {
+		case *v1.AuthError:
+			realResult.Err = v
+		default:
+			return err
+		}
+	} else {
+		realResult.Success = success
+	}
+	return nil
+}
+func newAuthServiceBeginPasskeyRegistrationArgs() interface{} {
+	return v1.NewAuthServiceBeginPasskeyRegistrationArgs()
+}
+
+func newAuthServiceBeginPasskeyRegistrationResult() interface{} {
+	return v1.NewAuthServiceBeginPasskeyRegistrationResult()
+}
+
+func finishPasskeyRegistrationHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*v1.AuthServiceFinishPasskeyRegistrationArgs)
+	realResult := result.(*v1.AuthServiceFinishPasskeyRegistrationResult)
+	success, err := handler.(v1.AuthService).FinishPasskeyRegistration(ctx, realArg.Req)
+	if err != nil {
+		switch v := err.(type) {
+		case *v1.AuthError:
+			realResult.Err = v
+		default:
+			return err
+		}
+	} else {
+		realResult.Success = success
+	}
+	return nil
+}
+func newAuthServiceFinishPasskeyRegistrationArgs() interface{} {
+	return v1.NewAuthServiceFinishPasskeyRegistrationArgs()
+}
+
+func newAuthServiceFinishPasskeyRegistrationResult() interface{} {
+	return v1.NewAuthServiceFinishPasskeyRegistrationResult()
+}
+
+func beginPasskeyLoginHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*v1.AuthServiceBeginPasskeyLoginArgs)
+	realResult := result.(*v1.AuthServiceBeginPasskeyLoginResult)
+	success, err := handler.(v1.AuthService).BeginPasskeyLogin(ctx, realArg.Req)
+	if err != nil {
+		switch v := err.(type) {
+		case *v1.AuthError:
+			realResult.Err = v
+		default:
+			return err
+		}
+	} else {
+		realResult.Success = success
+	}
+	return nil
+}
+func newAuthServiceBeginPasskeyLoginArgs() interface{} {
+	return v1.NewAuthServiceBeginPasskeyLoginArgs()
+}
+
+func newAuthServiceBeginPasskeyLoginResult() interface{} {
+	return v1.NewAuthServiceBeginPasskeyLoginResult()
+}
+
+func finishPasskeyLoginHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*v1.AuthServiceFinishPasskeyLoginArgs)
+	realResult := result.(*v1.AuthServiceFinishPasskeyLoginResult)
+	success, err := handler.(v1.AuthService).FinishPasskeyLogin(ctx, realArg.Req)
+	if err != nil {
+		switch v := err.(type) {
+		case *v1.AuthError:
+			realResult.Err = v
+		default:
+			return err
+		}
+	} else {
+		realResult.Success = success
+	}
+	return nil
+}
+func newAuthServiceFinishPasskeyLoginArgs() interface{} {
+	return v1.NewAuthServiceFinishPasskeyLoginArgs()
+}
+
+func newAuthServiceFinishPasskeyLoginResult() interface{} {
+	return v1.NewAuthServiceFinishPasskeyLoginResult()
+}
+
+func renamePasskeyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*v1.AuthServiceRenamePasskeyArgs)
+	realResult := result.(*v1.AuthServiceRenamePasskeyResult)
+	success, err := handler.(v1.AuthService).RenamePasskey(ctx, realArg.Req)
+	if err != nil {
+		switch v := err.(type) {
+		case *v1.AuthError:
+			realResult.Err = v
+		default:
+			return err
+		}
+	} else {
+		realResult.Success = success
+	}
+	return nil
+}
+func newAuthServiceRenamePasskeyArgs() interface{} {
+	return v1.NewAuthServiceRenamePasskeyArgs()
+}
+
+func newAuthServiceRenamePasskeyResult() interface{} {
+	return v1.NewAuthServiceRenamePasskeyResult()
+}
+
+func deletePasskeyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*v1.AuthServiceDeletePasskeyArgs)
+	realResult := result.(*v1.AuthServiceDeletePasskeyResult)
+	success, err := handler.(v1.AuthService).DeletePasskey(ctx, realArg.Req)
+	if err != nil {
+		switch v := err.(type) {
+		case *v1.AuthError:
+			realResult.Err = v
+		default:
+			return err
+		}
+	} else {
+		realResult.Success = success
+	}
+	return nil
+}
+func newAuthServiceDeletePasskeyArgs() interface{} {
+	return v1.NewAuthServiceDeletePasskeyArgs()
+}
+
+func newAuthServiceDeletePasskeyResult() interface{} {
+	return v1.NewAuthServiceDeletePasskeyResult()
+}
+
 func getUserHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*v1.AuthServiceGetUserArgs)
 	realResult := result.(*v1.AuthServiceGetUserResult)
@@ -668,6 +916,118 @@ func (p *kClient) UploadAvatar(ctx context.Context, req *v1.UploadAvatarReq) (r 
 	_args.Req = req
 	var _result v1.AuthServiceUploadAvatarResult
 	if err = p.c.Call(ctx, "UploadAvatar", &_args, &_result); err != nil {
+		return
+	}
+	switch {
+	case _result.Err != nil:
+		return r, _result.Err
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ListPasskeys(ctx context.Context, req *v1.ListPasskeysReq) (r *v1.ListPasskeysResp, err error) {
+	var _args v1.AuthServiceListPasskeysArgs
+	_args.Req = req
+	var _result v1.AuthServiceListPasskeysResult
+	if err = p.c.Call(ctx, "ListPasskeys", &_args, &_result); err != nil {
+		return
+	}
+	switch {
+	case _result.Err != nil:
+		return r, _result.Err
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SendPasskeyManagementCode(ctx context.Context, req *v1.SendPasskeyManagementCodeReq) (r *v1.PasskeyManagementCodeResp, err error) {
+	var _args v1.AuthServiceSendPasskeyManagementCodeArgs
+	_args.Req = req
+	var _result v1.AuthServiceSendPasskeyManagementCodeResult
+	if err = p.c.Call(ctx, "SendPasskeyManagementCode", &_args, &_result); err != nil {
+		return
+	}
+	switch {
+	case _result.Err != nil:
+		return r, _result.Err
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) BeginPasskeyRegistration(ctx context.Context, req *v1.BeginPasskeyRegistrationReq) (r *v1.PasskeyCeremonyResp, err error) {
+	var _args v1.AuthServiceBeginPasskeyRegistrationArgs
+	_args.Req = req
+	var _result v1.AuthServiceBeginPasskeyRegistrationResult
+	if err = p.c.Call(ctx, "BeginPasskeyRegistration", &_args, &_result); err != nil {
+		return
+	}
+	switch {
+	case _result.Err != nil:
+		return r, _result.Err
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) FinishPasskeyRegistration(ctx context.Context, req *v1.FinishPasskeyRegistrationReq) (r *v1.PasskeyResp, err error) {
+	var _args v1.AuthServiceFinishPasskeyRegistrationArgs
+	_args.Req = req
+	var _result v1.AuthServiceFinishPasskeyRegistrationResult
+	if err = p.c.Call(ctx, "FinishPasskeyRegistration", &_args, &_result); err != nil {
+		return
+	}
+	switch {
+	case _result.Err != nil:
+		return r, _result.Err
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) BeginPasskeyLogin(ctx context.Context, req *v1.BeginPasskeyLoginReq) (r *v1.PasskeyCeremonyResp, err error) {
+	var _args v1.AuthServiceBeginPasskeyLoginArgs
+	_args.Req = req
+	var _result v1.AuthServiceBeginPasskeyLoginResult
+	if err = p.c.Call(ctx, "BeginPasskeyLogin", &_args, &_result); err != nil {
+		return
+	}
+	switch {
+	case _result.Err != nil:
+		return r, _result.Err
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) FinishPasskeyLogin(ctx context.Context, req *v1.FinishPasskeyLoginReq) (r *v1.UserResp, err error) {
+	var _args v1.AuthServiceFinishPasskeyLoginArgs
+	_args.Req = req
+	var _result v1.AuthServiceFinishPasskeyLoginResult
+	if err = p.c.Call(ctx, "FinishPasskeyLogin", &_args, &_result); err != nil {
+		return
+	}
+	switch {
+	case _result.Err != nil:
+		return r, _result.Err
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) RenamePasskey(ctx context.Context, req *v1.RenamePasskeyReq) (r *v1.PasskeyResp, err error) {
+	var _args v1.AuthServiceRenamePasskeyArgs
+	_args.Req = req
+	var _result v1.AuthServiceRenamePasskeyResult
+	if err = p.c.Call(ctx, "RenamePasskey", &_args, &_result); err != nil {
+		return
+	}
+	switch {
+	case _result.Err != nil:
+		return r, _result.Err
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeletePasskey(ctx context.Context, req *v1.DeletePasskeyReq) (r *v1.BaseResp, err error) {
+	var _args v1.AuthServiceDeletePasskeyArgs
+	_args.Req = req
+	var _result v1.AuthServiceDeletePasskeyResult
+	if err = p.c.Call(ctx, "DeletePasskey", &_args, &_result); err != nil {
 		return
 	}
 	switch {

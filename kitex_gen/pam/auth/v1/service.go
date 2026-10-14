@@ -30,6 +30,22 @@ type AuthService interface {
 
 	UploadAvatar(ctx context.Context, req *UploadAvatarReq) (r *UploadAvatarResp, err error)
 
+	ListPasskeys(ctx context.Context, req *ListPasskeysReq) (r *ListPasskeysResp, err error)
+
+	SendPasskeyManagementCode(ctx context.Context, req *SendPasskeyManagementCodeReq) (r *PasskeyManagementCodeResp, err error)
+
+	BeginPasskeyRegistration(ctx context.Context, req *BeginPasskeyRegistrationReq) (r *PasskeyCeremonyResp, err error)
+
+	FinishPasskeyRegistration(ctx context.Context, req *FinishPasskeyRegistrationReq) (r *PasskeyResp, err error)
+
+	BeginPasskeyLogin(ctx context.Context, req *BeginPasskeyLoginReq) (r *PasskeyCeremonyResp, err error)
+
+	FinishPasskeyLogin(ctx context.Context, req *FinishPasskeyLoginReq) (r *UserResp, err error)
+
+	RenamePasskey(ctx context.Context, req *RenamePasskeyReq) (r *PasskeyResp, err error)
+
+	DeletePasskey(ctx context.Context, req *DeletePasskeyReq) (r *BaseResp, err error)
+
 	GetUser(ctx context.Context, req *GetUserReq) (r *UserResp, err error)
 
 	ListUsers(ctx context.Context, req *ListUsersReq) (r *ListUsersResp, err error)
@@ -1067,6 +1083,758 @@ func (p *AuthServiceUploadAvatarResult) String() string {
 }
 
 var fieldIDToName_AuthServiceUploadAvatarResult = map[int16]string{
+	0: "success",
+	1: "err",
+}
+
+type AuthServiceListPasskeysArgs struct {
+	Req *ListPasskeysReq `thrift:"req,1,required" frugal:"1,required,ListPasskeysReq" json:"req"`
+}
+
+func NewAuthServiceListPasskeysArgs() *AuthServiceListPasskeysArgs {
+	return &AuthServiceListPasskeysArgs{}
+}
+
+func (p *AuthServiceListPasskeysArgs) InitDefault() {
+}
+
+var AuthServiceListPasskeysArgs_Req_DEFAULT *ListPasskeysReq
+
+func (p *AuthServiceListPasskeysArgs) GetReq() (v *ListPasskeysReq) {
+	if !p.IsSetReq() {
+		return AuthServiceListPasskeysArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *AuthServiceListPasskeysArgs) SetReq(val *ListPasskeysReq) {
+	p.Req = val
+}
+
+func (p *AuthServiceListPasskeysArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *AuthServiceListPasskeysArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceListPasskeysArgs(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceListPasskeysArgs = map[int16]string{
+	1: "req",
+}
+
+type AuthServiceListPasskeysResult struct {
+	Success *ListPasskeysResp `thrift:"success,0,optional" frugal:"0,optional,ListPasskeysResp" json:"success,omitempty"`
+	Err     *AuthError        `thrift:"err,1,optional" frugal:"1,optional,AuthError" json:"err,omitempty"`
+}
+
+func NewAuthServiceListPasskeysResult() *AuthServiceListPasskeysResult {
+	return &AuthServiceListPasskeysResult{}
+}
+
+func (p *AuthServiceListPasskeysResult) InitDefault() {
+}
+
+var AuthServiceListPasskeysResult_Success_DEFAULT *ListPasskeysResp
+
+func (p *AuthServiceListPasskeysResult) GetSuccess() (v *ListPasskeysResp) {
+	if !p.IsSetSuccess() {
+		return AuthServiceListPasskeysResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var AuthServiceListPasskeysResult_Err_DEFAULT *AuthError
+
+func (p *AuthServiceListPasskeysResult) GetErr() (v *AuthError) {
+	if !p.IsSetErr() {
+		return AuthServiceListPasskeysResult_Err_DEFAULT
+	}
+	return p.Err
+}
+func (p *AuthServiceListPasskeysResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ListPasskeysResp)
+}
+func (p *AuthServiceListPasskeysResult) SetErr(val *AuthError) {
+	p.Err = val
+}
+
+func (p *AuthServiceListPasskeysResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *AuthServiceListPasskeysResult) IsSetErr() bool {
+	return p.Err != nil
+}
+
+func (p *AuthServiceListPasskeysResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceListPasskeysResult(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceListPasskeysResult = map[int16]string{
+	0: "success",
+	1: "err",
+}
+
+type AuthServiceSendPasskeyManagementCodeArgs struct {
+	Req *SendPasskeyManagementCodeReq `thrift:"req,1,required" frugal:"1,required,SendPasskeyManagementCodeReq" json:"req"`
+}
+
+func NewAuthServiceSendPasskeyManagementCodeArgs() *AuthServiceSendPasskeyManagementCodeArgs {
+	return &AuthServiceSendPasskeyManagementCodeArgs{}
+}
+
+func (p *AuthServiceSendPasskeyManagementCodeArgs) InitDefault() {
+}
+
+var AuthServiceSendPasskeyManagementCodeArgs_Req_DEFAULT *SendPasskeyManagementCodeReq
+
+func (p *AuthServiceSendPasskeyManagementCodeArgs) GetReq() (v *SendPasskeyManagementCodeReq) {
+	if !p.IsSetReq() {
+		return AuthServiceSendPasskeyManagementCodeArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *AuthServiceSendPasskeyManagementCodeArgs) SetReq(val *SendPasskeyManagementCodeReq) {
+	p.Req = val
+}
+
+func (p *AuthServiceSendPasskeyManagementCodeArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *AuthServiceSendPasskeyManagementCodeArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceSendPasskeyManagementCodeArgs(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceSendPasskeyManagementCodeArgs = map[int16]string{
+	1: "req",
+}
+
+type AuthServiceSendPasskeyManagementCodeResult struct {
+	Success *PasskeyManagementCodeResp `thrift:"success,0,optional" frugal:"0,optional,PasskeyManagementCodeResp" json:"success,omitempty"`
+	Err     *AuthError                 `thrift:"err,1,optional" frugal:"1,optional,AuthError" json:"err,omitempty"`
+}
+
+func NewAuthServiceSendPasskeyManagementCodeResult() *AuthServiceSendPasskeyManagementCodeResult {
+	return &AuthServiceSendPasskeyManagementCodeResult{}
+}
+
+func (p *AuthServiceSendPasskeyManagementCodeResult) InitDefault() {
+}
+
+var AuthServiceSendPasskeyManagementCodeResult_Success_DEFAULT *PasskeyManagementCodeResp
+
+func (p *AuthServiceSendPasskeyManagementCodeResult) GetSuccess() (v *PasskeyManagementCodeResp) {
+	if !p.IsSetSuccess() {
+		return AuthServiceSendPasskeyManagementCodeResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var AuthServiceSendPasskeyManagementCodeResult_Err_DEFAULT *AuthError
+
+func (p *AuthServiceSendPasskeyManagementCodeResult) GetErr() (v *AuthError) {
+	if !p.IsSetErr() {
+		return AuthServiceSendPasskeyManagementCodeResult_Err_DEFAULT
+	}
+	return p.Err
+}
+func (p *AuthServiceSendPasskeyManagementCodeResult) SetSuccess(x interface{}) {
+	p.Success = x.(*PasskeyManagementCodeResp)
+}
+func (p *AuthServiceSendPasskeyManagementCodeResult) SetErr(val *AuthError) {
+	p.Err = val
+}
+
+func (p *AuthServiceSendPasskeyManagementCodeResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *AuthServiceSendPasskeyManagementCodeResult) IsSetErr() bool {
+	return p.Err != nil
+}
+
+func (p *AuthServiceSendPasskeyManagementCodeResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceSendPasskeyManagementCodeResult(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceSendPasskeyManagementCodeResult = map[int16]string{
+	0: "success",
+	1: "err",
+}
+
+type AuthServiceBeginPasskeyRegistrationArgs struct {
+	Req *BeginPasskeyRegistrationReq `thrift:"req,1,required" frugal:"1,required,BeginPasskeyRegistrationReq" json:"req"`
+}
+
+func NewAuthServiceBeginPasskeyRegistrationArgs() *AuthServiceBeginPasskeyRegistrationArgs {
+	return &AuthServiceBeginPasskeyRegistrationArgs{}
+}
+
+func (p *AuthServiceBeginPasskeyRegistrationArgs) InitDefault() {
+}
+
+var AuthServiceBeginPasskeyRegistrationArgs_Req_DEFAULT *BeginPasskeyRegistrationReq
+
+func (p *AuthServiceBeginPasskeyRegistrationArgs) GetReq() (v *BeginPasskeyRegistrationReq) {
+	if !p.IsSetReq() {
+		return AuthServiceBeginPasskeyRegistrationArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *AuthServiceBeginPasskeyRegistrationArgs) SetReq(val *BeginPasskeyRegistrationReq) {
+	p.Req = val
+}
+
+func (p *AuthServiceBeginPasskeyRegistrationArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *AuthServiceBeginPasskeyRegistrationArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceBeginPasskeyRegistrationArgs(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceBeginPasskeyRegistrationArgs = map[int16]string{
+	1: "req",
+}
+
+type AuthServiceBeginPasskeyRegistrationResult struct {
+	Success *PasskeyCeremonyResp `thrift:"success,0,optional" frugal:"0,optional,PasskeyCeremonyResp" json:"success,omitempty"`
+	Err     *AuthError           `thrift:"err,1,optional" frugal:"1,optional,AuthError" json:"err,omitempty"`
+}
+
+func NewAuthServiceBeginPasskeyRegistrationResult() *AuthServiceBeginPasskeyRegistrationResult {
+	return &AuthServiceBeginPasskeyRegistrationResult{}
+}
+
+func (p *AuthServiceBeginPasskeyRegistrationResult) InitDefault() {
+}
+
+var AuthServiceBeginPasskeyRegistrationResult_Success_DEFAULT *PasskeyCeremonyResp
+
+func (p *AuthServiceBeginPasskeyRegistrationResult) GetSuccess() (v *PasskeyCeremonyResp) {
+	if !p.IsSetSuccess() {
+		return AuthServiceBeginPasskeyRegistrationResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var AuthServiceBeginPasskeyRegistrationResult_Err_DEFAULT *AuthError
+
+func (p *AuthServiceBeginPasskeyRegistrationResult) GetErr() (v *AuthError) {
+	if !p.IsSetErr() {
+		return AuthServiceBeginPasskeyRegistrationResult_Err_DEFAULT
+	}
+	return p.Err
+}
+func (p *AuthServiceBeginPasskeyRegistrationResult) SetSuccess(x interface{}) {
+	p.Success = x.(*PasskeyCeremonyResp)
+}
+func (p *AuthServiceBeginPasskeyRegistrationResult) SetErr(val *AuthError) {
+	p.Err = val
+}
+
+func (p *AuthServiceBeginPasskeyRegistrationResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *AuthServiceBeginPasskeyRegistrationResult) IsSetErr() bool {
+	return p.Err != nil
+}
+
+func (p *AuthServiceBeginPasskeyRegistrationResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceBeginPasskeyRegistrationResult(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceBeginPasskeyRegistrationResult = map[int16]string{
+	0: "success",
+	1: "err",
+}
+
+type AuthServiceFinishPasskeyRegistrationArgs struct {
+	Req *FinishPasskeyRegistrationReq `thrift:"req,1,required" frugal:"1,required,FinishPasskeyRegistrationReq" json:"req"`
+}
+
+func NewAuthServiceFinishPasskeyRegistrationArgs() *AuthServiceFinishPasskeyRegistrationArgs {
+	return &AuthServiceFinishPasskeyRegistrationArgs{}
+}
+
+func (p *AuthServiceFinishPasskeyRegistrationArgs) InitDefault() {
+}
+
+var AuthServiceFinishPasskeyRegistrationArgs_Req_DEFAULT *FinishPasskeyRegistrationReq
+
+func (p *AuthServiceFinishPasskeyRegistrationArgs) GetReq() (v *FinishPasskeyRegistrationReq) {
+	if !p.IsSetReq() {
+		return AuthServiceFinishPasskeyRegistrationArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *AuthServiceFinishPasskeyRegistrationArgs) SetReq(val *FinishPasskeyRegistrationReq) {
+	p.Req = val
+}
+
+func (p *AuthServiceFinishPasskeyRegistrationArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *AuthServiceFinishPasskeyRegistrationArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceFinishPasskeyRegistrationArgs(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceFinishPasskeyRegistrationArgs = map[int16]string{
+	1: "req",
+}
+
+type AuthServiceFinishPasskeyRegistrationResult struct {
+	Success *PasskeyResp `thrift:"success,0,optional" frugal:"0,optional,PasskeyResp" json:"success,omitempty"`
+	Err     *AuthError   `thrift:"err,1,optional" frugal:"1,optional,AuthError" json:"err,omitempty"`
+}
+
+func NewAuthServiceFinishPasskeyRegistrationResult() *AuthServiceFinishPasskeyRegistrationResult {
+	return &AuthServiceFinishPasskeyRegistrationResult{}
+}
+
+func (p *AuthServiceFinishPasskeyRegistrationResult) InitDefault() {
+}
+
+var AuthServiceFinishPasskeyRegistrationResult_Success_DEFAULT *PasskeyResp
+
+func (p *AuthServiceFinishPasskeyRegistrationResult) GetSuccess() (v *PasskeyResp) {
+	if !p.IsSetSuccess() {
+		return AuthServiceFinishPasskeyRegistrationResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var AuthServiceFinishPasskeyRegistrationResult_Err_DEFAULT *AuthError
+
+func (p *AuthServiceFinishPasskeyRegistrationResult) GetErr() (v *AuthError) {
+	if !p.IsSetErr() {
+		return AuthServiceFinishPasskeyRegistrationResult_Err_DEFAULT
+	}
+	return p.Err
+}
+func (p *AuthServiceFinishPasskeyRegistrationResult) SetSuccess(x interface{}) {
+	p.Success = x.(*PasskeyResp)
+}
+func (p *AuthServiceFinishPasskeyRegistrationResult) SetErr(val *AuthError) {
+	p.Err = val
+}
+
+func (p *AuthServiceFinishPasskeyRegistrationResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *AuthServiceFinishPasskeyRegistrationResult) IsSetErr() bool {
+	return p.Err != nil
+}
+
+func (p *AuthServiceFinishPasskeyRegistrationResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceFinishPasskeyRegistrationResult(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceFinishPasskeyRegistrationResult = map[int16]string{
+	0: "success",
+	1: "err",
+}
+
+type AuthServiceBeginPasskeyLoginArgs struct {
+	Req *BeginPasskeyLoginReq `thrift:"req,1,required" frugal:"1,required,BeginPasskeyLoginReq" json:"req"`
+}
+
+func NewAuthServiceBeginPasskeyLoginArgs() *AuthServiceBeginPasskeyLoginArgs {
+	return &AuthServiceBeginPasskeyLoginArgs{}
+}
+
+func (p *AuthServiceBeginPasskeyLoginArgs) InitDefault() {
+}
+
+var AuthServiceBeginPasskeyLoginArgs_Req_DEFAULT *BeginPasskeyLoginReq
+
+func (p *AuthServiceBeginPasskeyLoginArgs) GetReq() (v *BeginPasskeyLoginReq) {
+	if !p.IsSetReq() {
+		return AuthServiceBeginPasskeyLoginArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *AuthServiceBeginPasskeyLoginArgs) SetReq(val *BeginPasskeyLoginReq) {
+	p.Req = val
+}
+
+func (p *AuthServiceBeginPasskeyLoginArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *AuthServiceBeginPasskeyLoginArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceBeginPasskeyLoginArgs(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceBeginPasskeyLoginArgs = map[int16]string{
+	1: "req",
+}
+
+type AuthServiceBeginPasskeyLoginResult struct {
+	Success *PasskeyCeremonyResp `thrift:"success,0,optional" frugal:"0,optional,PasskeyCeremonyResp" json:"success,omitempty"`
+	Err     *AuthError           `thrift:"err,1,optional" frugal:"1,optional,AuthError" json:"err,omitempty"`
+}
+
+func NewAuthServiceBeginPasskeyLoginResult() *AuthServiceBeginPasskeyLoginResult {
+	return &AuthServiceBeginPasskeyLoginResult{}
+}
+
+func (p *AuthServiceBeginPasskeyLoginResult) InitDefault() {
+}
+
+var AuthServiceBeginPasskeyLoginResult_Success_DEFAULT *PasskeyCeremonyResp
+
+func (p *AuthServiceBeginPasskeyLoginResult) GetSuccess() (v *PasskeyCeremonyResp) {
+	if !p.IsSetSuccess() {
+		return AuthServiceBeginPasskeyLoginResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var AuthServiceBeginPasskeyLoginResult_Err_DEFAULT *AuthError
+
+func (p *AuthServiceBeginPasskeyLoginResult) GetErr() (v *AuthError) {
+	if !p.IsSetErr() {
+		return AuthServiceBeginPasskeyLoginResult_Err_DEFAULT
+	}
+	return p.Err
+}
+func (p *AuthServiceBeginPasskeyLoginResult) SetSuccess(x interface{}) {
+	p.Success = x.(*PasskeyCeremonyResp)
+}
+func (p *AuthServiceBeginPasskeyLoginResult) SetErr(val *AuthError) {
+	p.Err = val
+}
+
+func (p *AuthServiceBeginPasskeyLoginResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *AuthServiceBeginPasskeyLoginResult) IsSetErr() bool {
+	return p.Err != nil
+}
+
+func (p *AuthServiceBeginPasskeyLoginResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceBeginPasskeyLoginResult(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceBeginPasskeyLoginResult = map[int16]string{
+	0: "success",
+	1: "err",
+}
+
+type AuthServiceFinishPasskeyLoginArgs struct {
+	Req *FinishPasskeyLoginReq `thrift:"req,1,required" frugal:"1,required,FinishPasskeyLoginReq" json:"req"`
+}
+
+func NewAuthServiceFinishPasskeyLoginArgs() *AuthServiceFinishPasskeyLoginArgs {
+	return &AuthServiceFinishPasskeyLoginArgs{}
+}
+
+func (p *AuthServiceFinishPasskeyLoginArgs) InitDefault() {
+}
+
+var AuthServiceFinishPasskeyLoginArgs_Req_DEFAULT *FinishPasskeyLoginReq
+
+func (p *AuthServiceFinishPasskeyLoginArgs) GetReq() (v *FinishPasskeyLoginReq) {
+	if !p.IsSetReq() {
+		return AuthServiceFinishPasskeyLoginArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *AuthServiceFinishPasskeyLoginArgs) SetReq(val *FinishPasskeyLoginReq) {
+	p.Req = val
+}
+
+func (p *AuthServiceFinishPasskeyLoginArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *AuthServiceFinishPasskeyLoginArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceFinishPasskeyLoginArgs(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceFinishPasskeyLoginArgs = map[int16]string{
+	1: "req",
+}
+
+type AuthServiceFinishPasskeyLoginResult struct {
+	Success *UserResp  `thrift:"success,0,optional" frugal:"0,optional,UserResp" json:"success,omitempty"`
+	Err     *AuthError `thrift:"err,1,optional" frugal:"1,optional,AuthError" json:"err,omitempty"`
+}
+
+func NewAuthServiceFinishPasskeyLoginResult() *AuthServiceFinishPasskeyLoginResult {
+	return &AuthServiceFinishPasskeyLoginResult{}
+}
+
+func (p *AuthServiceFinishPasskeyLoginResult) InitDefault() {
+}
+
+var AuthServiceFinishPasskeyLoginResult_Success_DEFAULT *UserResp
+
+func (p *AuthServiceFinishPasskeyLoginResult) GetSuccess() (v *UserResp) {
+	if !p.IsSetSuccess() {
+		return AuthServiceFinishPasskeyLoginResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var AuthServiceFinishPasskeyLoginResult_Err_DEFAULT *AuthError
+
+func (p *AuthServiceFinishPasskeyLoginResult) GetErr() (v *AuthError) {
+	if !p.IsSetErr() {
+		return AuthServiceFinishPasskeyLoginResult_Err_DEFAULT
+	}
+	return p.Err
+}
+func (p *AuthServiceFinishPasskeyLoginResult) SetSuccess(x interface{}) {
+	p.Success = x.(*UserResp)
+}
+func (p *AuthServiceFinishPasskeyLoginResult) SetErr(val *AuthError) {
+	p.Err = val
+}
+
+func (p *AuthServiceFinishPasskeyLoginResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *AuthServiceFinishPasskeyLoginResult) IsSetErr() bool {
+	return p.Err != nil
+}
+
+func (p *AuthServiceFinishPasskeyLoginResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceFinishPasskeyLoginResult(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceFinishPasskeyLoginResult = map[int16]string{
+	0: "success",
+	1: "err",
+}
+
+type AuthServiceRenamePasskeyArgs struct {
+	Req *RenamePasskeyReq `thrift:"req,1,required" frugal:"1,required,RenamePasskeyReq" json:"req"`
+}
+
+func NewAuthServiceRenamePasskeyArgs() *AuthServiceRenamePasskeyArgs {
+	return &AuthServiceRenamePasskeyArgs{}
+}
+
+func (p *AuthServiceRenamePasskeyArgs) InitDefault() {
+}
+
+var AuthServiceRenamePasskeyArgs_Req_DEFAULT *RenamePasskeyReq
+
+func (p *AuthServiceRenamePasskeyArgs) GetReq() (v *RenamePasskeyReq) {
+	if !p.IsSetReq() {
+		return AuthServiceRenamePasskeyArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *AuthServiceRenamePasskeyArgs) SetReq(val *RenamePasskeyReq) {
+	p.Req = val
+}
+
+func (p *AuthServiceRenamePasskeyArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *AuthServiceRenamePasskeyArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceRenamePasskeyArgs(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceRenamePasskeyArgs = map[int16]string{
+	1: "req",
+}
+
+type AuthServiceRenamePasskeyResult struct {
+	Success *PasskeyResp `thrift:"success,0,optional" frugal:"0,optional,PasskeyResp" json:"success,omitempty"`
+	Err     *AuthError   `thrift:"err,1,optional" frugal:"1,optional,AuthError" json:"err,omitempty"`
+}
+
+func NewAuthServiceRenamePasskeyResult() *AuthServiceRenamePasskeyResult {
+	return &AuthServiceRenamePasskeyResult{}
+}
+
+func (p *AuthServiceRenamePasskeyResult) InitDefault() {
+}
+
+var AuthServiceRenamePasskeyResult_Success_DEFAULT *PasskeyResp
+
+func (p *AuthServiceRenamePasskeyResult) GetSuccess() (v *PasskeyResp) {
+	if !p.IsSetSuccess() {
+		return AuthServiceRenamePasskeyResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var AuthServiceRenamePasskeyResult_Err_DEFAULT *AuthError
+
+func (p *AuthServiceRenamePasskeyResult) GetErr() (v *AuthError) {
+	if !p.IsSetErr() {
+		return AuthServiceRenamePasskeyResult_Err_DEFAULT
+	}
+	return p.Err
+}
+func (p *AuthServiceRenamePasskeyResult) SetSuccess(x interface{}) {
+	p.Success = x.(*PasskeyResp)
+}
+func (p *AuthServiceRenamePasskeyResult) SetErr(val *AuthError) {
+	p.Err = val
+}
+
+func (p *AuthServiceRenamePasskeyResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *AuthServiceRenamePasskeyResult) IsSetErr() bool {
+	return p.Err != nil
+}
+
+func (p *AuthServiceRenamePasskeyResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceRenamePasskeyResult(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceRenamePasskeyResult = map[int16]string{
+	0: "success",
+	1: "err",
+}
+
+type AuthServiceDeletePasskeyArgs struct {
+	Req *DeletePasskeyReq `thrift:"req,1,required" frugal:"1,required,DeletePasskeyReq" json:"req"`
+}
+
+func NewAuthServiceDeletePasskeyArgs() *AuthServiceDeletePasskeyArgs {
+	return &AuthServiceDeletePasskeyArgs{}
+}
+
+func (p *AuthServiceDeletePasskeyArgs) InitDefault() {
+}
+
+var AuthServiceDeletePasskeyArgs_Req_DEFAULT *DeletePasskeyReq
+
+func (p *AuthServiceDeletePasskeyArgs) GetReq() (v *DeletePasskeyReq) {
+	if !p.IsSetReq() {
+		return AuthServiceDeletePasskeyArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *AuthServiceDeletePasskeyArgs) SetReq(val *DeletePasskeyReq) {
+	p.Req = val
+}
+
+func (p *AuthServiceDeletePasskeyArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *AuthServiceDeletePasskeyArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceDeletePasskeyArgs(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceDeletePasskeyArgs = map[int16]string{
+	1: "req",
+}
+
+type AuthServiceDeletePasskeyResult struct {
+	Success *BaseResp  `thrift:"success,0,optional" frugal:"0,optional,BaseResp" json:"success,omitempty"`
+	Err     *AuthError `thrift:"err,1,optional" frugal:"1,optional,AuthError" json:"err,omitempty"`
+}
+
+func NewAuthServiceDeletePasskeyResult() *AuthServiceDeletePasskeyResult {
+	return &AuthServiceDeletePasskeyResult{}
+}
+
+func (p *AuthServiceDeletePasskeyResult) InitDefault() {
+}
+
+var AuthServiceDeletePasskeyResult_Success_DEFAULT *BaseResp
+
+func (p *AuthServiceDeletePasskeyResult) GetSuccess() (v *BaseResp) {
+	if !p.IsSetSuccess() {
+		return AuthServiceDeletePasskeyResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var AuthServiceDeletePasskeyResult_Err_DEFAULT *AuthError
+
+func (p *AuthServiceDeletePasskeyResult) GetErr() (v *AuthError) {
+	if !p.IsSetErr() {
+		return AuthServiceDeletePasskeyResult_Err_DEFAULT
+	}
+	return p.Err
+}
+func (p *AuthServiceDeletePasskeyResult) SetSuccess(x interface{}) {
+	p.Success = x.(*BaseResp)
+}
+func (p *AuthServiceDeletePasskeyResult) SetErr(val *AuthError) {
+	p.Err = val
+}
+
+func (p *AuthServiceDeletePasskeyResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *AuthServiceDeletePasskeyResult) IsSetErr() bool {
+	return p.Err != nil
+}
+
+func (p *AuthServiceDeletePasskeyResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceDeletePasskeyResult(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceDeletePasskeyResult = map[int16]string{
 	0: "success",
 	1: "err",
 }

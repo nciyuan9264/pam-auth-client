@@ -1579,6 +1579,812 @@ var fieldIDToName_JWKSResp = map[int16]string{
 	3: "data",
 }
 
+type PasskeyRecord struct {
+	PasskeyId      string `thrift:"passkey_id,1,required" frugal:"1,required,string" json:"passkey_id"`
+	Name           string `thrift:"name,2,required" frugal:"2,required,string" json:"name"`
+	CreatedAtUnix  int64  `thrift:"created_at_unix,3,required" frugal:"3,required,i64" json:"created_at_unix"`
+	LastUsedAtUnix *int64 `thrift:"last_used_at_unix,4,optional" frugal:"4,optional,i64" json:"last_used_at_unix,omitempty"`
+	BackupEligible *bool  `thrift:"backup_eligible,5,optional" frugal:"5,optional,bool" json:"backup_eligible,omitempty"`
+	BackedUp       *bool  `thrift:"backed_up,6,optional" frugal:"6,optional,bool" json:"backed_up,omitempty"`
+}
+
+func NewPasskeyRecord() *PasskeyRecord {
+	return &PasskeyRecord{}
+}
+
+func (p *PasskeyRecord) InitDefault() {
+}
+
+func (p *PasskeyRecord) GetPasskeyId() (v string) {
+	return p.PasskeyId
+}
+
+func (p *PasskeyRecord) GetName() (v string) {
+	return p.Name
+}
+
+func (p *PasskeyRecord) GetCreatedAtUnix() (v int64) {
+	return p.CreatedAtUnix
+}
+
+var PasskeyRecord_LastUsedAtUnix_DEFAULT int64
+
+func (p *PasskeyRecord) GetLastUsedAtUnix() (v int64) {
+	if !p.IsSetLastUsedAtUnix() {
+		return PasskeyRecord_LastUsedAtUnix_DEFAULT
+	}
+	return *p.LastUsedAtUnix
+}
+
+var PasskeyRecord_BackupEligible_DEFAULT bool
+
+func (p *PasskeyRecord) GetBackupEligible() (v bool) {
+	if !p.IsSetBackupEligible() {
+		return PasskeyRecord_BackupEligible_DEFAULT
+	}
+	return *p.BackupEligible
+}
+
+var PasskeyRecord_BackedUp_DEFAULT bool
+
+func (p *PasskeyRecord) GetBackedUp() (v bool) {
+	if !p.IsSetBackedUp() {
+		return PasskeyRecord_BackedUp_DEFAULT
+	}
+	return *p.BackedUp
+}
+func (p *PasskeyRecord) SetPasskeyId(val string) {
+	p.PasskeyId = val
+}
+func (p *PasskeyRecord) SetName(val string) {
+	p.Name = val
+}
+func (p *PasskeyRecord) SetCreatedAtUnix(val int64) {
+	p.CreatedAtUnix = val
+}
+func (p *PasskeyRecord) SetLastUsedAtUnix(val *int64) {
+	p.LastUsedAtUnix = val
+}
+func (p *PasskeyRecord) SetBackupEligible(val *bool) {
+	p.BackupEligible = val
+}
+func (p *PasskeyRecord) SetBackedUp(val *bool) {
+	p.BackedUp = val
+}
+
+func (p *PasskeyRecord) IsSetLastUsedAtUnix() bool {
+	return p.LastUsedAtUnix != nil
+}
+
+func (p *PasskeyRecord) IsSetBackupEligible() bool {
+	return p.BackupEligible != nil
+}
+
+func (p *PasskeyRecord) IsSetBackedUp() bool {
+	return p.BackedUp != nil
+}
+
+func (p *PasskeyRecord) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PasskeyRecord(%+v)", *p)
+}
+
+var fieldIDToName_PasskeyRecord = map[int16]string{
+	1: "passkey_id",
+	2: "name",
+	3: "created_at_unix",
+	4: "last_used_at_unix",
+	5: "backup_eligible",
+	6: "backed_up",
+}
+
+type ListPasskeysReq struct {
+}
+
+func NewListPasskeysReq() *ListPasskeysReq {
+	return &ListPasskeysReq{}
+}
+
+func (p *ListPasskeysReq) InitDefault() {
+}
+
+func (p *ListPasskeysReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ListPasskeysReq(%+v)", *p)
+}
+
+var fieldIDToName_ListPasskeysReq = map[int16]string{}
+
+type ListPasskeysData struct {
+	Enabled     bool             `thrift:"enabled,1,required" frugal:"1,required,bool" json:"enabled"`
+	RpId        string           `thrift:"rp_id,2,required" frugal:"2,required,string" json:"rp_id"`
+	MaxPasskeys int32            `thrift:"max_passkeys,3,required" frugal:"3,required,i32" json:"max_passkeys"`
+	Passkeys    []*PasskeyRecord `thrift:"passkeys,4,required" frugal:"4,required,list<PasskeyRecord>" json:"passkeys"`
+}
+
+func NewListPasskeysData() *ListPasskeysData {
+	return &ListPasskeysData{}
+}
+
+func (p *ListPasskeysData) InitDefault() {
+}
+
+func (p *ListPasskeysData) GetEnabled() (v bool) {
+	return p.Enabled
+}
+
+func (p *ListPasskeysData) GetRpId() (v string) {
+	return p.RpId
+}
+
+func (p *ListPasskeysData) GetMaxPasskeys() (v int32) {
+	return p.MaxPasskeys
+}
+
+func (p *ListPasskeysData) GetPasskeys() (v []*PasskeyRecord) {
+	return p.Passkeys
+}
+func (p *ListPasskeysData) SetEnabled(val bool) {
+	p.Enabled = val
+}
+func (p *ListPasskeysData) SetRpId(val string) {
+	p.RpId = val
+}
+func (p *ListPasskeysData) SetMaxPasskeys(val int32) {
+	p.MaxPasskeys = val
+}
+func (p *ListPasskeysData) SetPasskeys(val []*PasskeyRecord) {
+	p.Passkeys = val
+}
+
+func (p *ListPasskeysData) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ListPasskeysData(%+v)", *p)
+}
+
+var fieldIDToName_ListPasskeysData = map[int16]string{
+	1: "enabled",
+	2: "rp_id",
+	3: "max_passkeys",
+	4: "passkeys",
+}
+
+type ListPasskeysResp struct {
+	StatusCode int32             `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
+	Message    string            `thrift:"message,2,required" frugal:"2,required,string" json:"message"`
+	Data       *ListPasskeysData `thrift:"data,3,required" frugal:"3,required,ListPasskeysData" json:"data"`
+}
+
+func NewListPasskeysResp() *ListPasskeysResp {
+	return &ListPasskeysResp{}
+}
+
+func (p *ListPasskeysResp) InitDefault() {
+}
+
+func (p *ListPasskeysResp) GetStatusCode() (v int32) {
+	return p.StatusCode
+}
+
+func (p *ListPasskeysResp) GetMessage() (v string) {
+	return p.Message
+}
+
+var ListPasskeysResp_Data_DEFAULT *ListPasskeysData
+
+func (p *ListPasskeysResp) GetData() (v *ListPasskeysData) {
+	if !p.IsSetData() {
+		return ListPasskeysResp_Data_DEFAULT
+	}
+	return p.Data
+}
+func (p *ListPasskeysResp) SetStatusCode(val int32) {
+	p.StatusCode = val
+}
+func (p *ListPasskeysResp) SetMessage(val string) {
+	p.Message = val
+}
+func (p *ListPasskeysResp) SetData(val *ListPasskeysData) {
+	p.Data = val
+}
+
+func (p *ListPasskeysResp) IsSetData() bool {
+	return p.Data != nil
+}
+
+func (p *ListPasskeysResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ListPasskeysResp(%+v)", *p)
+}
+
+var fieldIDToName_ListPasskeysResp = map[int16]string{
+	1: "status_code",
+	2: "message",
+	3: "data",
+}
+
+type SendPasskeyManagementCodeReq struct {
+	Purpose   string  `thrift:"purpose,1,required" frugal:"1,required,string" json:"purpose"`
+	PasskeyId *string `thrift:"passkey_id,2,optional" frugal:"2,optional,string" json:"passkey_id,omitempty"`
+}
+
+func NewSendPasskeyManagementCodeReq() *SendPasskeyManagementCodeReq {
+	return &SendPasskeyManagementCodeReq{}
+}
+
+func (p *SendPasskeyManagementCodeReq) InitDefault() {
+}
+
+func (p *SendPasskeyManagementCodeReq) GetPurpose() (v string) {
+	return p.Purpose
+}
+
+var SendPasskeyManagementCodeReq_PasskeyId_DEFAULT string
+
+func (p *SendPasskeyManagementCodeReq) GetPasskeyId() (v string) {
+	if !p.IsSetPasskeyId() {
+		return SendPasskeyManagementCodeReq_PasskeyId_DEFAULT
+	}
+	return *p.PasskeyId
+}
+func (p *SendPasskeyManagementCodeReq) SetPurpose(val string) {
+	p.Purpose = val
+}
+func (p *SendPasskeyManagementCodeReq) SetPasskeyId(val *string) {
+	p.PasskeyId = val
+}
+
+func (p *SendPasskeyManagementCodeReq) IsSetPasskeyId() bool {
+	return p.PasskeyId != nil
+}
+
+func (p *SendPasskeyManagementCodeReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("SendPasskeyManagementCodeReq(%+v)", *p)
+}
+
+var fieldIDToName_SendPasskeyManagementCodeReq = map[int16]string{
+	1: "purpose",
+	2: "passkey_id",
+}
+
+type PasskeyManagementCodeData struct {
+	OperationId        string `thrift:"operation_id,1,required" frugal:"1,required,string" json:"operation_id"`
+	ExpiresAtUnix      int64  `thrift:"expires_at_unix,2,required" frugal:"2,required,i64" json:"expires_at_unix"`
+	ResendAfterSeconds int32  `thrift:"resend_after_seconds,3,required" frugal:"3,required,i32" json:"resend_after_seconds"`
+}
+
+func NewPasskeyManagementCodeData() *PasskeyManagementCodeData {
+	return &PasskeyManagementCodeData{}
+}
+
+func (p *PasskeyManagementCodeData) InitDefault() {
+}
+
+func (p *PasskeyManagementCodeData) GetOperationId() (v string) {
+	return p.OperationId
+}
+
+func (p *PasskeyManagementCodeData) GetExpiresAtUnix() (v int64) {
+	return p.ExpiresAtUnix
+}
+
+func (p *PasskeyManagementCodeData) GetResendAfterSeconds() (v int32) {
+	return p.ResendAfterSeconds
+}
+func (p *PasskeyManagementCodeData) SetOperationId(val string) {
+	p.OperationId = val
+}
+func (p *PasskeyManagementCodeData) SetExpiresAtUnix(val int64) {
+	p.ExpiresAtUnix = val
+}
+func (p *PasskeyManagementCodeData) SetResendAfterSeconds(val int32) {
+	p.ResendAfterSeconds = val
+}
+
+func (p *PasskeyManagementCodeData) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PasskeyManagementCodeData(%+v)", *p)
+}
+
+var fieldIDToName_PasskeyManagementCodeData = map[int16]string{
+	1: "operation_id",
+	2: "expires_at_unix",
+	3: "resend_after_seconds",
+}
+
+type PasskeyManagementCodeResp struct {
+	StatusCode int32                      `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
+	Message    string                     `thrift:"message,2,required" frugal:"2,required,string" json:"message"`
+	Data       *PasskeyManagementCodeData `thrift:"data,3,required" frugal:"3,required,PasskeyManagementCodeData" json:"data"`
+}
+
+func NewPasskeyManagementCodeResp() *PasskeyManagementCodeResp {
+	return &PasskeyManagementCodeResp{}
+}
+
+func (p *PasskeyManagementCodeResp) InitDefault() {
+}
+
+func (p *PasskeyManagementCodeResp) GetStatusCode() (v int32) {
+	return p.StatusCode
+}
+
+func (p *PasskeyManagementCodeResp) GetMessage() (v string) {
+	return p.Message
+}
+
+var PasskeyManagementCodeResp_Data_DEFAULT *PasskeyManagementCodeData
+
+func (p *PasskeyManagementCodeResp) GetData() (v *PasskeyManagementCodeData) {
+	if !p.IsSetData() {
+		return PasskeyManagementCodeResp_Data_DEFAULT
+	}
+	return p.Data
+}
+func (p *PasskeyManagementCodeResp) SetStatusCode(val int32) {
+	p.StatusCode = val
+}
+func (p *PasskeyManagementCodeResp) SetMessage(val string) {
+	p.Message = val
+}
+func (p *PasskeyManagementCodeResp) SetData(val *PasskeyManagementCodeData) {
+	p.Data = val
+}
+
+func (p *PasskeyManagementCodeResp) IsSetData() bool {
+	return p.Data != nil
+}
+
+func (p *PasskeyManagementCodeResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PasskeyManagementCodeResp(%+v)", *p)
+}
+
+var fieldIDToName_PasskeyManagementCodeResp = map[int16]string{
+	1: "status_code",
+	2: "message",
+	3: "data",
+}
+
+type BeginPasskeyRegistrationReq struct {
+	OperationId string `thrift:"operation_id,1,required" frugal:"1,required,string" json:"operation_id"`
+	Code        string `thrift:"code,2,required" frugal:"2,required,string" json:"code"`
+	Name        string `thrift:"name,3,required" frugal:"3,required,string" json:"name"`
+}
+
+func NewBeginPasskeyRegistrationReq() *BeginPasskeyRegistrationReq {
+	return &BeginPasskeyRegistrationReq{}
+}
+
+func (p *BeginPasskeyRegistrationReq) InitDefault() {
+}
+
+func (p *BeginPasskeyRegistrationReq) GetOperationId() (v string) {
+	return p.OperationId
+}
+
+func (p *BeginPasskeyRegistrationReq) GetCode() (v string) {
+	return p.Code
+}
+
+func (p *BeginPasskeyRegistrationReq) GetName() (v string) {
+	return p.Name
+}
+func (p *BeginPasskeyRegistrationReq) SetOperationId(val string) {
+	p.OperationId = val
+}
+func (p *BeginPasskeyRegistrationReq) SetCode(val string) {
+	p.Code = val
+}
+func (p *BeginPasskeyRegistrationReq) SetName(val string) {
+	p.Name = val
+}
+
+func (p *BeginPasskeyRegistrationReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("BeginPasskeyRegistrationReq(%+v)", *p)
+}
+
+var fieldIDToName_BeginPasskeyRegistrationReq = map[int16]string{
+	1: "operation_id",
+	2: "code",
+	3: "name",
+}
+
+type PasskeyCeremonyData struct {
+	CeremonyId           string `thrift:"ceremony_id,1,required" frugal:"1,required,string" json:"ceremony_id"`
+	PublicKeyOptionsJson string `thrift:"public_key_options_json,2,required" frugal:"2,required,string" json:"public_key_options_json"`
+	ExpiresAtUnix        int64  `thrift:"expires_at_unix,3,required" frugal:"3,required,i64" json:"expires_at_unix"`
+}
+
+func NewPasskeyCeremonyData() *PasskeyCeremonyData {
+	return &PasskeyCeremonyData{}
+}
+
+func (p *PasskeyCeremonyData) InitDefault() {
+}
+
+func (p *PasskeyCeremonyData) GetCeremonyId() (v string) {
+	return p.CeremonyId
+}
+
+func (p *PasskeyCeremonyData) GetPublicKeyOptionsJson() (v string) {
+	return p.PublicKeyOptionsJson
+}
+
+func (p *PasskeyCeremonyData) GetExpiresAtUnix() (v int64) {
+	return p.ExpiresAtUnix
+}
+func (p *PasskeyCeremonyData) SetCeremonyId(val string) {
+	p.CeremonyId = val
+}
+func (p *PasskeyCeremonyData) SetPublicKeyOptionsJson(val string) {
+	p.PublicKeyOptionsJson = val
+}
+func (p *PasskeyCeremonyData) SetExpiresAtUnix(val int64) {
+	p.ExpiresAtUnix = val
+}
+
+func (p *PasskeyCeremonyData) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PasskeyCeremonyData(%+v)", *p)
+}
+
+var fieldIDToName_PasskeyCeremonyData = map[int16]string{
+	1: "ceremony_id",
+	2: "public_key_options_json",
+	3: "expires_at_unix",
+}
+
+type PasskeyCeremonyResp struct {
+	StatusCode int32                `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
+	Message    string               `thrift:"message,2,required" frugal:"2,required,string" json:"message"`
+	Data       *PasskeyCeremonyData `thrift:"data,3,required" frugal:"3,required,PasskeyCeremonyData" json:"data"`
+}
+
+func NewPasskeyCeremonyResp() *PasskeyCeremonyResp {
+	return &PasskeyCeremonyResp{}
+}
+
+func (p *PasskeyCeremonyResp) InitDefault() {
+}
+
+func (p *PasskeyCeremonyResp) GetStatusCode() (v int32) {
+	return p.StatusCode
+}
+
+func (p *PasskeyCeremonyResp) GetMessage() (v string) {
+	return p.Message
+}
+
+var PasskeyCeremonyResp_Data_DEFAULT *PasskeyCeremonyData
+
+func (p *PasskeyCeremonyResp) GetData() (v *PasskeyCeremonyData) {
+	if !p.IsSetData() {
+		return PasskeyCeremonyResp_Data_DEFAULT
+	}
+	return p.Data
+}
+func (p *PasskeyCeremonyResp) SetStatusCode(val int32) {
+	p.StatusCode = val
+}
+func (p *PasskeyCeremonyResp) SetMessage(val string) {
+	p.Message = val
+}
+func (p *PasskeyCeremonyResp) SetData(val *PasskeyCeremonyData) {
+	p.Data = val
+}
+
+func (p *PasskeyCeremonyResp) IsSetData() bool {
+	return p.Data != nil
+}
+
+func (p *PasskeyCeremonyResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PasskeyCeremonyResp(%+v)", *p)
+}
+
+var fieldIDToName_PasskeyCeremonyResp = map[int16]string{
+	1: "status_code",
+	2: "message",
+	3: "data",
+}
+
+type FinishPasskeyRegistrationReq struct {
+	CeremonyId     string `thrift:"ceremony_id,1,required" frugal:"1,required,string" json:"ceremony_id"`
+	CredentialJson string `thrift:"credential_json,2,required" frugal:"2,required,string" json:"credential_json"`
+}
+
+func NewFinishPasskeyRegistrationReq() *FinishPasskeyRegistrationReq {
+	return &FinishPasskeyRegistrationReq{}
+}
+
+func (p *FinishPasskeyRegistrationReq) InitDefault() {
+}
+
+func (p *FinishPasskeyRegistrationReq) GetCeremonyId() (v string) {
+	return p.CeremonyId
+}
+
+func (p *FinishPasskeyRegistrationReq) GetCredentialJson() (v string) {
+	return p.CredentialJson
+}
+func (p *FinishPasskeyRegistrationReq) SetCeremonyId(val string) {
+	p.CeremonyId = val
+}
+func (p *FinishPasskeyRegistrationReq) SetCredentialJson(val string) {
+	p.CredentialJson = val
+}
+
+func (p *FinishPasskeyRegistrationReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("FinishPasskeyRegistrationReq(%+v)", *p)
+}
+
+var fieldIDToName_FinishPasskeyRegistrationReq = map[int16]string{
+	1: "ceremony_id",
+	2: "credential_json",
+}
+
+type PasskeyData struct {
+	Passkey *PasskeyRecord `thrift:"passkey,1,required" frugal:"1,required,PasskeyRecord" json:"passkey"`
+}
+
+func NewPasskeyData() *PasskeyData {
+	return &PasskeyData{}
+}
+
+func (p *PasskeyData) InitDefault() {
+}
+
+var PasskeyData_Passkey_DEFAULT *PasskeyRecord
+
+func (p *PasskeyData) GetPasskey() (v *PasskeyRecord) {
+	if !p.IsSetPasskey() {
+		return PasskeyData_Passkey_DEFAULT
+	}
+	return p.Passkey
+}
+func (p *PasskeyData) SetPasskey(val *PasskeyRecord) {
+	p.Passkey = val
+}
+
+func (p *PasskeyData) IsSetPasskey() bool {
+	return p.Passkey != nil
+}
+
+func (p *PasskeyData) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PasskeyData(%+v)", *p)
+}
+
+var fieldIDToName_PasskeyData = map[int16]string{
+	1: "passkey",
+}
+
+type PasskeyResp struct {
+	StatusCode int32        `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
+	Message    string       `thrift:"message,2,required" frugal:"2,required,string" json:"message"`
+	Data       *PasskeyData `thrift:"data,3,required" frugal:"3,required,PasskeyData" json:"data"`
+}
+
+func NewPasskeyResp() *PasskeyResp {
+	return &PasskeyResp{}
+}
+
+func (p *PasskeyResp) InitDefault() {
+}
+
+func (p *PasskeyResp) GetStatusCode() (v int32) {
+	return p.StatusCode
+}
+
+func (p *PasskeyResp) GetMessage() (v string) {
+	return p.Message
+}
+
+var PasskeyResp_Data_DEFAULT *PasskeyData
+
+func (p *PasskeyResp) GetData() (v *PasskeyData) {
+	if !p.IsSetData() {
+		return PasskeyResp_Data_DEFAULT
+	}
+	return p.Data
+}
+func (p *PasskeyResp) SetStatusCode(val int32) {
+	p.StatusCode = val
+}
+func (p *PasskeyResp) SetMessage(val string) {
+	p.Message = val
+}
+func (p *PasskeyResp) SetData(val *PasskeyData) {
+	p.Data = val
+}
+
+func (p *PasskeyResp) IsSetData() bool {
+	return p.Data != nil
+}
+
+func (p *PasskeyResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PasskeyResp(%+v)", *p)
+}
+
+var fieldIDToName_PasskeyResp = map[int16]string{
+	1: "status_code",
+	2: "message",
+	3: "data",
+}
+
+type BeginPasskeyLoginReq struct {
+}
+
+func NewBeginPasskeyLoginReq() *BeginPasskeyLoginReq {
+	return &BeginPasskeyLoginReq{}
+}
+
+func (p *BeginPasskeyLoginReq) InitDefault() {
+}
+
+func (p *BeginPasskeyLoginReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("BeginPasskeyLoginReq(%+v)", *p)
+}
+
+var fieldIDToName_BeginPasskeyLoginReq = map[int16]string{}
+
+type FinishPasskeyLoginReq struct {
+	CeremonyId     string `thrift:"ceremony_id,1,required" frugal:"1,required,string" json:"ceremony_id"`
+	CredentialJson string `thrift:"credential_json,2,required" frugal:"2,required,string" json:"credential_json"`
+}
+
+func NewFinishPasskeyLoginReq() *FinishPasskeyLoginReq {
+	return &FinishPasskeyLoginReq{}
+}
+
+func (p *FinishPasskeyLoginReq) InitDefault() {
+}
+
+func (p *FinishPasskeyLoginReq) GetCeremonyId() (v string) {
+	return p.CeremonyId
+}
+
+func (p *FinishPasskeyLoginReq) GetCredentialJson() (v string) {
+	return p.CredentialJson
+}
+func (p *FinishPasskeyLoginReq) SetCeremonyId(val string) {
+	p.CeremonyId = val
+}
+func (p *FinishPasskeyLoginReq) SetCredentialJson(val string) {
+	p.CredentialJson = val
+}
+
+func (p *FinishPasskeyLoginReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("FinishPasskeyLoginReq(%+v)", *p)
+}
+
+var fieldIDToName_FinishPasskeyLoginReq = map[int16]string{
+	1: "ceremony_id",
+	2: "credential_json",
+}
+
+type RenamePasskeyReq struct {
+	PasskeyId string `thrift:"passkey_id,1,required" frugal:"1,required,string" json:"passkey_id"`
+	Name      string `thrift:"name,2,required" frugal:"2,required,string" json:"name"`
+}
+
+func NewRenamePasskeyReq() *RenamePasskeyReq {
+	return &RenamePasskeyReq{}
+}
+
+func (p *RenamePasskeyReq) InitDefault() {
+}
+
+func (p *RenamePasskeyReq) GetPasskeyId() (v string) {
+	return p.PasskeyId
+}
+
+func (p *RenamePasskeyReq) GetName() (v string) {
+	return p.Name
+}
+func (p *RenamePasskeyReq) SetPasskeyId(val string) {
+	p.PasskeyId = val
+}
+func (p *RenamePasskeyReq) SetName(val string) {
+	p.Name = val
+}
+
+func (p *RenamePasskeyReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("RenamePasskeyReq(%+v)", *p)
+}
+
+var fieldIDToName_RenamePasskeyReq = map[int16]string{
+	1: "passkey_id",
+	2: "name",
+}
+
+type DeletePasskeyReq struct {
+	PasskeyId   string `thrift:"passkey_id,1,required" frugal:"1,required,string" json:"passkey_id"`
+	OperationId string `thrift:"operation_id,2,required" frugal:"2,required,string" json:"operation_id"`
+	Code        string `thrift:"code,3,required" frugal:"3,required,string" json:"code"`
+}
+
+func NewDeletePasskeyReq() *DeletePasskeyReq {
+	return &DeletePasskeyReq{}
+}
+
+func (p *DeletePasskeyReq) InitDefault() {
+}
+
+func (p *DeletePasskeyReq) GetPasskeyId() (v string) {
+	return p.PasskeyId
+}
+
+func (p *DeletePasskeyReq) GetOperationId() (v string) {
+	return p.OperationId
+}
+
+func (p *DeletePasskeyReq) GetCode() (v string) {
+	return p.Code
+}
+func (p *DeletePasskeyReq) SetPasskeyId(val string) {
+	p.PasskeyId = val
+}
+func (p *DeletePasskeyReq) SetOperationId(val string) {
+	p.OperationId = val
+}
+func (p *DeletePasskeyReq) SetCode(val string) {
+	p.Code = val
+}
+
+func (p *DeletePasskeyReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("DeletePasskeyReq(%+v)", *p)
+}
+
+var fieldIDToName_DeletePasskeyReq = map[int16]string{
+	1: "passkey_id",
+	2: "operation_id",
+	3: "code",
+}
+
 type AuthError struct {
 	Code    string `thrift:"code,1,required" frugal:"1,required,string" json:"code"`
 	Message string `thrift:"message,2,required" frugal:"2,required,string" json:"message"`

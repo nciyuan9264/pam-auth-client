@@ -268,7 +268,10 @@ var fieldIDToName_SendCodeReq = map[int16]string{
 }
 
 type SendCodeData struct {
-	DevCode *string `thrift:"dev_code,1,optional" frugal:"1,optional,string" json:"dev_code,omitempty"`
+	DevCode        *string `thrift:"dev_code,1,optional" frugal:"1,optional,string" json:"dev_code,omitempty"`
+	DeliveryId     *string `thrift:"delivery_id,2,optional" frugal:"2,optional,string" json:"delivery_id,omitempty"`
+	DeliveryStatus *string `thrift:"delivery_status,3,optional" frugal:"3,optional,string" json:"delivery_status,omitempty"`
+	PollAfterMs    *int32  `thrift:"poll_after_ms,4,optional" frugal:"4,optional,i32" json:"poll_after_ms,omitempty"`
 }
 
 func NewSendCodeData() *SendCodeData {
@@ -286,12 +289,60 @@ func (p *SendCodeData) GetDevCode() (v string) {
 	}
 	return *p.DevCode
 }
+
+var SendCodeData_DeliveryId_DEFAULT string
+
+func (p *SendCodeData) GetDeliveryId() (v string) {
+	if !p.IsSetDeliveryId() {
+		return SendCodeData_DeliveryId_DEFAULT
+	}
+	return *p.DeliveryId
+}
+
+var SendCodeData_DeliveryStatus_DEFAULT string
+
+func (p *SendCodeData) GetDeliveryStatus() (v string) {
+	if !p.IsSetDeliveryStatus() {
+		return SendCodeData_DeliveryStatus_DEFAULT
+	}
+	return *p.DeliveryStatus
+}
+
+var SendCodeData_PollAfterMs_DEFAULT int32
+
+func (p *SendCodeData) GetPollAfterMs() (v int32) {
+	if !p.IsSetPollAfterMs() {
+		return SendCodeData_PollAfterMs_DEFAULT
+	}
+	return *p.PollAfterMs
+}
 func (p *SendCodeData) SetDevCode(val *string) {
 	p.DevCode = val
+}
+func (p *SendCodeData) SetDeliveryId(val *string) {
+	p.DeliveryId = val
+}
+func (p *SendCodeData) SetDeliveryStatus(val *string) {
+	p.DeliveryStatus = val
+}
+func (p *SendCodeData) SetPollAfterMs(val *int32) {
+	p.PollAfterMs = val
 }
 
 func (p *SendCodeData) IsSetDevCode() bool {
 	return p.DevCode != nil
+}
+
+func (p *SendCodeData) IsSetDeliveryId() bool {
+	return p.DeliveryId != nil
+}
+
+func (p *SendCodeData) IsSetDeliveryStatus() bool {
+	return p.DeliveryStatus != nil
+}
+
+func (p *SendCodeData) IsSetPollAfterMs() bool {
+	return p.PollAfterMs != nil
 }
 
 func (p *SendCodeData) String() string {
@@ -303,6 +354,9 @@ func (p *SendCodeData) String() string {
 
 var fieldIDToName_SendCodeData = map[int16]string{
 	1: "dev_code",
+	2: "delivery_id",
+	3: "delivery_status",
+	4: "poll_after_ms",
 }
 
 type SendCodeResp struct {
@@ -356,6 +410,129 @@ func (p *SendCodeResp) String() string {
 }
 
 var fieldIDToName_SendCodeResp = map[int16]string{
+	1: "status_code",
+	2: "message",
+	3: "data",
+}
+
+type GetEmailDeliveryStatusReq struct {
+	DeliveryId string `thrift:"delivery_id,1,required" frugal:"1,required,string" json:"delivery_id"`
+}
+
+func NewGetEmailDeliveryStatusReq() *GetEmailDeliveryStatusReq {
+	return &GetEmailDeliveryStatusReq{}
+}
+
+func (p *GetEmailDeliveryStatusReq) InitDefault() {
+}
+
+func (p *GetEmailDeliveryStatusReq) GetDeliveryId() (v string) {
+	return p.DeliveryId
+}
+func (p *GetEmailDeliveryStatusReq) SetDeliveryId(val string) {
+	p.DeliveryId = val
+}
+
+func (p *GetEmailDeliveryStatusReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetEmailDeliveryStatusReq(%+v)", *p)
+}
+
+var fieldIDToName_GetEmailDeliveryStatusReq = map[int16]string{
+	1: "delivery_id",
+}
+
+type EmailDeliveryStatusData struct {
+	DeliveryId string `thrift:"delivery_id,1,required" frugal:"1,required,string" json:"delivery_id"`
+	Status     string `thrift:"status,2,required" frugal:"2,required,string" json:"status"`
+}
+
+func NewEmailDeliveryStatusData() *EmailDeliveryStatusData {
+	return &EmailDeliveryStatusData{}
+}
+
+func (p *EmailDeliveryStatusData) InitDefault() {
+}
+
+func (p *EmailDeliveryStatusData) GetDeliveryId() (v string) {
+	return p.DeliveryId
+}
+
+func (p *EmailDeliveryStatusData) GetStatus() (v string) {
+	return p.Status
+}
+func (p *EmailDeliveryStatusData) SetDeliveryId(val string) {
+	p.DeliveryId = val
+}
+func (p *EmailDeliveryStatusData) SetStatus(val string) {
+	p.Status = val
+}
+
+func (p *EmailDeliveryStatusData) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EmailDeliveryStatusData(%+v)", *p)
+}
+
+var fieldIDToName_EmailDeliveryStatusData = map[int16]string{
+	1: "delivery_id",
+	2: "status",
+}
+
+type EmailDeliveryStatusResp struct {
+	StatusCode int32                    `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
+	Message    string                   `thrift:"message,2,required" frugal:"2,required,string" json:"message"`
+	Data       *EmailDeliveryStatusData `thrift:"data,3,required" frugal:"3,required,EmailDeliveryStatusData" json:"data"`
+}
+
+func NewEmailDeliveryStatusResp() *EmailDeliveryStatusResp {
+	return &EmailDeliveryStatusResp{}
+}
+
+func (p *EmailDeliveryStatusResp) InitDefault() {
+}
+
+func (p *EmailDeliveryStatusResp) GetStatusCode() (v int32) {
+	return p.StatusCode
+}
+
+func (p *EmailDeliveryStatusResp) GetMessage() (v string) {
+	return p.Message
+}
+
+var EmailDeliveryStatusResp_Data_DEFAULT *EmailDeliveryStatusData
+
+func (p *EmailDeliveryStatusResp) GetData() (v *EmailDeliveryStatusData) {
+	if !p.IsSetData() {
+		return EmailDeliveryStatusResp_Data_DEFAULT
+	}
+	return p.Data
+}
+func (p *EmailDeliveryStatusResp) SetStatusCode(val int32) {
+	p.StatusCode = val
+}
+func (p *EmailDeliveryStatusResp) SetMessage(val string) {
+	p.Message = val
+}
+func (p *EmailDeliveryStatusResp) SetData(val *EmailDeliveryStatusData) {
+	p.Data = val
+}
+
+func (p *EmailDeliveryStatusResp) IsSetData() bool {
+	return p.Data != nil
+}
+
+func (p *EmailDeliveryStatusResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EmailDeliveryStatusResp(%+v)", *p)
+}
+
+var fieldIDToName_EmailDeliveryStatusResp = map[int16]string{
 	1: "status_code",
 	2: "message",
 	3: "data",

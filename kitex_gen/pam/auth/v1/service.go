@@ -12,6 +12,8 @@ type AuthService interface {
 
 	SendCode(ctx context.Context, req *SendCodeReq) (r *SendCodeResp, err error)
 
+	GetEmailDeliveryStatus(ctx context.Context, req *GetEmailDeliveryStatusReq) (r *EmailDeliveryStatusResp, err error)
+
 	GetLoginShowcase(ctx context.Context, req *LoginShowcaseReq) (r *LoginShowcaseResp, err error)
 
 	LoginByPassword(ctx context.Context, req *LoginByPasswordReq) (r *UserResp, err error)
@@ -237,6 +239,100 @@ func (p *AuthServiceSendCodeResult) String() string {
 }
 
 var fieldIDToName_AuthServiceSendCodeResult = map[int16]string{
+	0: "success",
+	1: "err",
+}
+
+type AuthServiceGetEmailDeliveryStatusArgs struct {
+	Req *GetEmailDeliveryStatusReq `thrift:"req,1,required" frugal:"1,required,GetEmailDeliveryStatusReq" json:"req"`
+}
+
+func NewAuthServiceGetEmailDeliveryStatusArgs() *AuthServiceGetEmailDeliveryStatusArgs {
+	return &AuthServiceGetEmailDeliveryStatusArgs{}
+}
+
+func (p *AuthServiceGetEmailDeliveryStatusArgs) InitDefault() {
+}
+
+var AuthServiceGetEmailDeliveryStatusArgs_Req_DEFAULT *GetEmailDeliveryStatusReq
+
+func (p *AuthServiceGetEmailDeliveryStatusArgs) GetReq() (v *GetEmailDeliveryStatusReq) {
+	if !p.IsSetReq() {
+		return AuthServiceGetEmailDeliveryStatusArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *AuthServiceGetEmailDeliveryStatusArgs) SetReq(val *GetEmailDeliveryStatusReq) {
+	p.Req = val
+}
+
+func (p *AuthServiceGetEmailDeliveryStatusArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *AuthServiceGetEmailDeliveryStatusArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceGetEmailDeliveryStatusArgs(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceGetEmailDeliveryStatusArgs = map[int16]string{
+	1: "req",
+}
+
+type AuthServiceGetEmailDeliveryStatusResult struct {
+	Success *EmailDeliveryStatusResp `thrift:"success,0,optional" frugal:"0,optional,EmailDeliveryStatusResp" json:"success,omitempty"`
+	Err     *AuthError               `thrift:"err,1,optional" frugal:"1,optional,AuthError" json:"err,omitempty"`
+}
+
+func NewAuthServiceGetEmailDeliveryStatusResult() *AuthServiceGetEmailDeliveryStatusResult {
+	return &AuthServiceGetEmailDeliveryStatusResult{}
+}
+
+func (p *AuthServiceGetEmailDeliveryStatusResult) InitDefault() {
+}
+
+var AuthServiceGetEmailDeliveryStatusResult_Success_DEFAULT *EmailDeliveryStatusResp
+
+func (p *AuthServiceGetEmailDeliveryStatusResult) GetSuccess() (v *EmailDeliveryStatusResp) {
+	if !p.IsSetSuccess() {
+		return AuthServiceGetEmailDeliveryStatusResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var AuthServiceGetEmailDeliveryStatusResult_Err_DEFAULT *AuthError
+
+func (p *AuthServiceGetEmailDeliveryStatusResult) GetErr() (v *AuthError) {
+	if !p.IsSetErr() {
+		return AuthServiceGetEmailDeliveryStatusResult_Err_DEFAULT
+	}
+	return p.Err
+}
+func (p *AuthServiceGetEmailDeliveryStatusResult) SetSuccess(x interface{}) {
+	p.Success = x.(*EmailDeliveryStatusResp)
+}
+func (p *AuthServiceGetEmailDeliveryStatusResult) SetErr(val *AuthError) {
+	p.Err = val
+}
+
+func (p *AuthServiceGetEmailDeliveryStatusResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *AuthServiceGetEmailDeliveryStatusResult) IsSetErr() bool {
+	return p.Err != nil
+}
+
+func (p *AuthServiceGetEmailDeliveryStatusResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AuthServiceGetEmailDeliveryStatusResult(%+v)", *p)
+}
+
+var fieldIDToName_AuthServiceGetEmailDeliveryStatusResult = map[int16]string{
 	0: "success",
 	1: "err",
 }
